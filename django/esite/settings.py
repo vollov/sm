@@ -36,6 +36,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'captcha',
+    'crispy_forms',
+    'account',
+    'store',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -62,7 +66,7 @@ DATABASES = {
         'NAME': 'sm',
         'USER': 'root',
         'PASSWORD': 'justdoit', 
-        'HOST': 'localhost', 
+        'HOST': '127.0.0.1', 
     }
 }
 
@@ -80,8 +84,8 @@ USE_L10N = True
 USE_TZ = True
 
 # define resource root
-RESOURCE_ROOT='/opt/www/sm/'
-#RESOURCE_ROOT='c:/opt/var/www/sm/'
+#RESOURCE_ROOT='/opt/www/sm/'
+RESOURCE_ROOT='c:/opt/var/www/sm/'
 # Logging settings for development
 """
 DEBUG: Low level system information for debugging purposes
