@@ -7,20 +7,17 @@ from account.forms import UserForm
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 
+
 def register(request):
 
-    # A boolean value for telling the template whether the registration was successful.
-    # Set to False initially. Code changes value to True when registration succeeds.
-    registered = False
+#     registered = False
 
-    # If it's a HTTP POST, we're interested in processing form data.
     if request.method == 'POST':
-        # Attempt to grab information from the raw form information.
-        # Note that we make use of both UserForm and UserProfileForm.
+
         user_form = UserForm(data=request.POST)
 
-        # If the two forms are valid...
         if user_form.is_valid():
+            human = True
             # Save the user's form data to the database.
             user = user_form.save()
 
@@ -29,27 +26,27 @@ def register(request):
             user.set_password(user.password)
             user.save()
 
-            # Update our variable to tell the template registration was successful.
-            registered = True
-
-        # Invalid form or forms - mistakes or something else?
-        # Print problems to the terminal.
-        # They'll also be shown to the user.
+#             registered = True
+            return store.views.profile(request)
+            return HttpResponseRedirect('/store/profile')
         else:
             print user_form.errors
-
+            return HttpResponse("Your registration is failed.")
     # Not a HTTP POST, so we render our form using two ModelForm instances.
     # These forms will be blank, ready for user input.
     else:
         user_form = UserForm()
         
-    requestContext = RequestContext(request, {'user_form': user_form, 'registered': registered} )
+    requestContext = RequestContext(request, {'user_form': user_form, 
+                                              'page_title': 'Register',
+                                              'registered': registered} )
 
     # Render the template depending on the context.
     return render_to_response('register.html', requestContext)
     
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 def login(request):
 
@@ -60,12 +57,12 @@ def login(request):
                 # We use request.POST.get('<variable>') as opposed to request.POST['<variable>'],
                 # because the request.POST.get('<variable>') returns None, if the value does not exist,
                 # while the request.POST['<variable>'] will raise key error exception
-        username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
 
-        # Use Django's machinery to attempt to see if the username/password
+        # Use Django's machinery to attempt to see if the email/password
         # combination is valid - a User object is returned if it is.
-        user = authenticate(username=username, password=password)
+        user = authenticate(email=email, password=password)
 
         # If we have a User object, the details are correct.
         # If None (Python's way of representing the absence of a value), no user
@@ -76,18 +73,29 @@ def login(request):
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homepage.
                 login(request, user)
-                return HttpResponseRedirect('/customer/list/')
+                return HttpResponseRedirect('/store/profile/')
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your account is disabled.")
         else:
             # Bad login details were provided. So we can't log the user in.
-            print "Invalid login details: {0}, {1}".format(username, password)
+            print "Invalid login details: {0}, {1}".format(email, password)
             return HttpResponse("Invalid login details supplied.")
 
     # The request is not a HTTP POST, so display the login form.
     # This scenario would most likely be a HTTP GET.
     else:
-        # No context variables to pass to the template system, hence the
-        # blank dictionary object...
-        return render_to_response('login.html', {})
+        requestContext = RequestContext(request, {'page_title': 'Login'} )
+         
+        return render_to_response('login.html', requestContext)
+    
+from django.contrib.auth import logout
+
+# Use the login_required() decorator to ensure only those logged in can access the view.
+@login_required
+def user_logout(request):
+    # Since we know the user is logged in, we can now just log them out.
+    logout(request)
+
+    # Take the user back to the homepage.
+    return HttpResponseRedirect('/account/login')

@@ -9,7 +9,7 @@
     	<h2 class="form-signin-heading">Please sign in</h2>
             {% csrf_token %}
             <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            <input type="username" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
             
             <br />
             
@@ -19,7 +19,7 @@
             <br />
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 			<br />
-			<a class="" href="/account/register">Register an account</a><br />
+			<a class="pull-right" href="/account/register">Register an account</a><br />
         </form>
 		
 {% endblock %}
