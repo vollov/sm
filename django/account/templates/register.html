@@ -1,6 +1,7 @@
 {% extends 'site-layout.html' %}
 
 {% block title %} - {{ page_title }} {% endblock %}
+{% block menu %} {{ menu | safe }} {% endblock %}
 
 {% load staticfiles %}
 {% block content %}

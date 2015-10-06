@@ -111,7 +111,7 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
         },
-        'images.logfile': {
+        'account.logfile': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': os.path.join(RESOURCE_ROOT,'logs/debug.log'),
@@ -125,8 +125,13 @@ LOGGING = {
         },
     },
     'loggers': {
-        'image': {
-            'handlers': ['images.logfile', 'console'],
+        'account': {
+            'handlers': ['account.logfile', 'console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'store': {
+            'handlers': ['account.logfile', 'console'],
             'level': 'DEBUG',
             'propagate': True,
         },
@@ -160,3 +165,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(RESOURCE_ROOT,'media')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+LOGIN_URL='/account/login/'

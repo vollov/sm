@@ -1,0 +1,17 @@
+{% extends 'site-layout.html' %}
+
+{% block title %} - {{ page_title }} {% endblock %}
+
+{% block menu %} {{ menu | safe }} {% endblock %}
+
+{% load staticfiles %}
+{% block content %}
+
+		<form class="form-signin" method="post" action="/store/new/"
+                enctype="multipart/form-data">
+			<h2 class="form-signin-heading">Craete store</h2>
+            
+			{% crispy user_form %}
+							
+        </form>
+{% endblock %}

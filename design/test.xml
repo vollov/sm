@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<GIOSXML xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<MessageEnvelope>
+		<MessageTypeCd>REPQUERY</MessageTypeCd>
+		<MessagePackageNme>GET-MICRO-RATING-TIER-001</MessagePackageNme>
+	</MessageEnvelope>
+	<ReplyQuery>
+		<Policy>
+			<Risk>
+				<RiskVehicle>
+					<MicroratingTierCollisionCd>12</MicroratingTierCollisionCd>
+					<MicroratingBaseCombinedCollisionFct>1.1155</MicroratingBaseCombinedCollisionFct>
+					<MicroratingTierComprehensiveCd>9</MicroratingTierComprehensiveCd>
+					<MicroratingBaseCombinedComprehensiveFct>0.9588</MicroratingBaseCombinedComprehensiveFct>
+					<MicroratingTierLiabilityCd>15</MicroratingTierLiabilityCd>
+					<MicroratingBaseCombinedLiabilityFct>1.1662</MicroratingBaseCombinedLiabilityFct>
+				</RiskVehicle>
+			</Risk>
+		</Policy>
+	</ReplyQuery>
+	<MessageStatus>
+		<ReturnCd>0</ReturnCd>
+		<ReasonCd>0</ReasonCd>
+	</MessageStatus>
+</GIOSXML>

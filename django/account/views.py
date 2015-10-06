@@ -1,5 +1,9 @@
 from django.http import HttpResponse
 
+import logging
+logger = logging.getLogger(__name__)
+
+
 def index(request):
     return HttpResponse("Rango says hey there world!")
 
@@ -7,6 +11,7 @@ from account.forms import UserForm
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 
+from store.service import MenuService
 
 def register(request):
 
@@ -28,16 +33,20 @@ def register(request):
 
 #             registered = True
             return store.views.profile(request)
-            return HttpResponseRedirect('/store/profile')
+#             return HttpResponseRedirect('/store/profile')
         else:
             print user_form.errors
             return HttpResponse("Your registration is failed.")
     # Not a HTTP POST, so we render our form using two ModelForm instances.
     # These forms will be blank, ready for user input.
     else:
+        # for visitor, generate empty menu
+        menu = MenuService.visitor_menu()
+        
         user_form = UserForm()
         
-    requestContext = RequestContext(request, {'user_form': user_form, 
+    requestContext = RequestContext(request, {'menu':menu,
+                                              'user_form': user_form, 
                                               'page_title': 'Register',
                                               'registered': registered} )
 
@@ -48,8 +57,8 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
-def login(request):
-
+def sign_in(request):
+    logger.debug('enter sign_in() {0}'.format(request))
     # If the request is a HTTP POST, try to pull out the relevant information.
     if request.method == 'POST':
         # Gather the username and password provided by the user.
@@ -57,12 +66,12 @@ def login(request):
                 # We use request.POST.get('<variable>') as opposed to request.POST['<variable>'],
                 # because the request.POST.get('<variable>') returns None, if the value does not exist,
                 # while the request.POST['<variable>'] will raise key error exception
-        email = request.POST.get('email')
+        username = request.POST.get('username')
         password = request.POST.get('password')
 
         # Use Django's machinery to attempt to see if the email/password
         # combination is valid - a User object is returned if it is.
-        user = authenticate(email=email, password=password)
+        user = authenticate(username=username, password=password)
 
         # If we have a User object, the details are correct.
         # If None (Python's way of representing the absence of a value), no user
@@ -72,6 +81,7 @@ def login(request):
             if user.is_active:
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homepage.
+                logger.debug('user active, login() {0}, {1}'.format(request, user))
                 login(request, user)
                 return HttpResponseRedirect('/store/profile/')
             else:
@@ -85,7 +95,11 @@ def login(request):
     # The request is not a HTTP POST, so display the login form.
     # This scenario would most likely be a HTTP GET.
     else:
-        requestContext = RequestContext(request, {'page_title': 'Login'} )
+        # for visitor, generate empty menu
+        menu = MenuService.visitor_menu()
+        
+        requestContext = RequestContext(request, {'menu':menu,
+                                                  'page_title': 'Login'} )
          
         return render_to_response('login.html', requestContext)
     
@@ -95,6 +109,7 @@ from django.contrib.auth import logout
 @login_required
 def user_logout(request):
     # Since we know the user is logged in, we can now just log them out.
+    logger.debug('user_logout() {0}'.format(request))
     logout(request)
 
     # Take the user back to the homepage.
