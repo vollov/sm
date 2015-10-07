@@ -8,6 +8,7 @@ def index(request):
     return HttpResponse("Rango says hey there world!")
 
 from account.forms import UserForm
+from store.models import UserProfile
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 
@@ -20,17 +21,21 @@ def register(request):
     if request.method == 'POST':
 
         user_form = UserForm(data=request.POST)
-
+        
         if user_form.is_valid():
             human = True
-            # Save the user's form data to the database.
-            user = user_form.save()
-
+            
+            user = user_form.save(commit=False)
             # Now we hash the password with the set_password method.
             # Once hashed, we can update the user object.
             user.set_password(user.password)
+            user_profile = UserProfile()
+            user_profile.set_user = user
+            # Save the user's form data to the database.
             user.save()
+            user_profile.save()
 
+            
 #             registered = True
             return store.views.profile(request)
 #             return HttpResponseRedirect('/store/profile')
@@ -47,8 +52,7 @@ def register(request):
         
     requestContext = RequestContext(request, {'menu':menu,
                                               'user_form': user_form, 
-                                              'page_title': 'Register',
-                                              'registered': registered} )
+                                              'page_title': 'Register'} )
 
     # Render the template depending on the context.
     return render_to_response('register.html', requestContext)

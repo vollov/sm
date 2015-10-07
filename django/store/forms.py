@@ -5,11 +5,13 @@ from django.contrib.auth.models import User
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Button, Submit, ButtonHolder
+from models import Store
 
 class StoreForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
-        super(UserForm, self).__init__(*args, **kwargs)
+#         owner = kwargs.pop('user','')
+        super(StoreForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Field(
@@ -26,4 +28,4 @@ class StoreForm(forms.ModelForm):
     
     class Meta:
         model = Store
-        fields = ('username', 'email', 'password')
+        fields = ('name',)

@@ -6,12 +6,12 @@
 
 {% load staticfiles %}
 {% block content %}
-
+		{% load crispy_forms_tags %}
 		<form class="form-signin" method="post" action="/store/new/"
                 enctype="multipart/form-data">
 			<h2 class="form-signin-heading">Craete store</h2>
             
-			{% crispy user_form %}
+			{% crispy store_form %}
 							
         </form>
 {% endblock %}

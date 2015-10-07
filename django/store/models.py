@@ -4,7 +4,7 @@ import uuid
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-
+    phone = models.CharField(max_length=64, blank=True, null=True)
     id = models.CharField(max_length=64, primary_key=True, verbose_name=u"Activation key",
                  default=uuid.uuid4)
 
