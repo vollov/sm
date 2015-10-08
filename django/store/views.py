@@ -17,16 +17,17 @@ def profile(request):
     
     user_name = 'visitor'
     if request.user.is_authenticated():
-        user_name = request.user.username
-        logger.debug('page.views.profile() - user {0} login'.format(user_name))
+        current_user = request.user
+        logger.debug('page.views.profile() - user {0} login'.format(current_user.username))
     else:
         logger.debug('page.views.profile() - user not login')
-        
+    
+    print 'user = {0}'.format(vars(request.user))   
     menu = MenuService.new_user_menu(request.user)
     context = {
         'menu':menu,
         'page_title': 'Profile',
-        'user_name': user_name,
+        'user': current_user,
     }
     return render_to_response('profile.html', context)
 

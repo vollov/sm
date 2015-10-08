@@ -13,6 +13,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 
 from store.service import MenuService
+from account.forms import UserProfileForm, UserForm
 
 def register(request):
 
@@ -21,7 +22,7 @@ def register(request):
     if request.method == 'POST':
 
         user_form = UserForm(data=request.POST)
-        
+        profile_form = UserProfileForm(data=request.POST)
         if user_form.is_valid():
             human = True
             
@@ -29,10 +30,11 @@ def register(request):
             # Now we hash the password with the set_password method.
             # Once hashed, we can update the user object.
             user.set_password(user.password)
-            user_profile = UserProfile()
-            user_profile.set_user = user
             # Save the user's form data to the database.
             user.save()
+            
+            user_profile = profile_form.save(commit=False)
+            user_profile.set_user(user)
             user_profile.save()
 
             
@@ -40,7 +42,7 @@ def register(request):
             return store.views.profile(request)
 #             return HttpResponseRedirect('/store/profile')
         else:
-            print user_form.errors
+            print user_form.errors, profile_form.errors
             return HttpResponse("Your registration is failed.")
     # Not a HTTP POST, so we render our form using two ModelForm instances.
     # These forms will be blank, ready for user input.
@@ -49,10 +51,11 @@ def register(request):
         menu = MenuService.visitor_menu()
         
         user_form = UserForm()
-        
+        profile_form = UserProfileForm()
     requestContext = RequestContext(request, {'menu':menu,
                                               'user_form': user_form, 
-                                              'page_title': 'Register'} )
+                                              'page_title': 'Register',
+                                              'profile_form': profile_form} )
 
     # Render the template depending on the context.
     return render_to_response('register.html', requestContext)
