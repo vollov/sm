@@ -17,3 +17,12 @@ if user is neither registered or isOwner, show add store.
 
 1) user join a store as sales: add an item in sales_store table
 2) user create a store: add user.id in store.owner field
+
+
+
+steps
+==================
+1) user profile model
+2) user profile admin
+3) registration
+4) login

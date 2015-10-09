@@ -2,66 +2,34 @@ from django import forms
 
 from django.contrib.auth.models import User
 from captcha.fields import CaptchaField
-from store.models import UserProfile
+from models import UserProfile
 
 class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
+    password = forms.CharField(required=True, widget=forms.PasswordInput(
+                    attrs={'class':'form-control',
+                           'placeholder' :'Password',
+                    }))
     captcha = CaptchaField()
     
-#     def __init__(self, *args, **kwargs):
-#         
-#         super(UserForm, self).__init__(*args, **kwargs)
-# #         self.fields['owner']
-#         self.helper = FormHelper()
-#         self.helper.layout = Layout(
-#             Field(
-#                 'username',
-#                 placeholder = 'User Name',
-#                 css_class="form-control",
-#             ),
-#             Field(
-#                 'email',
-#                 placeholder = 'name@gmail.com',
-#                 css_class="form-control",
-#             ),
-#             Field(
-#                 'password',
-#                 placeholder = 'xxxxxxxx',
-#                 css_class="form-control",
-#             ),
-#             Field(
-#                 'captcha',
-#                 css_class="form-control",
-#             ),                                                                      
-# #             ButtonHolder(
-# #                 Submit('submit', 'Submit', css_class='btn btn-lg btn-primary btn-block')
-# #             )
-#             
-#         )
+    username = forms.CharField(required=True, widget=forms.TextInput(
+                    attrs={'class':'form-control',
+                           'placeholder' :'User Name',       
+                    }))
+    
+    email = forms.EmailField(required=True,widget=forms.TextInput(
+                    attrs={'class':'form-control',
+                           'placeholder' :'name@gmail.com',       
+                    }))
     
     class Meta:
         model = User
         fields = ('username', 'email', 'password')
 
 class UserProfileForm(forms.ModelForm):
-    phone = forms.CharField(required=True)
-    
-#     def __init__(self, *args, **kwargs):
-#         
-#         super(UserProfileForm, self).__init__(*args, **kwargs)
-# #         self.fields['owner']
-#         self.helper = FormHelper()
-#         self.helper.layout = Layout(
-#             Field(
-#                 'phone',
-#                 placeholder = '(519)-xxx-xxxx',
-#                 css_class="form-control",
-#             ),                                                                 
-# #             ButtonHolder(
-# #                 Submit('submit', 'Submit', css_class='btn btn-lg btn-primary btn-block')
-# #             )
-#             
-#         )
+    phone = forms.CharField(required=True,widget=forms.TextInput(
+                    attrs={'class':'form-control',
+                           'placeholder' :'(416)-111-1234',
+                    }))
         
     class Meta:
         model = UserProfile
