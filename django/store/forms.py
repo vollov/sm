@@ -9,22 +9,10 @@ from models import Store
 
 class StoreForm(forms.ModelForm):
     
-    def __init__(self, *args, **kwargs):
-#         owner = kwargs.pop('user','')
-        super(StoreForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            Field(
-                'name',
-                placeholder = 'Store Name',
-                css_class="form-control",
-            ),
-#             Field('owner', type="hidden"),                                                                      
-            ButtonHolder(
-                Submit('submit', 'Submit', css_class='btn btn-lg btn-primary btn-block')
-            )
-            
-        )
+    name = forms.CharField(required=True, widget=forms.TextInput(
+                    attrs={'class':'form-control',
+                           'placeholder' :'Store Name',       
+                    }))
     
     class Meta:
         model = Store

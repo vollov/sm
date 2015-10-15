@@ -6,12 +6,16 @@
 
 {% load staticfiles %}
 {% block content %}
-		{% load crispy_forms_tags %}
+
 		<form class="form-signin" method="post" action="/store/new/"
                 enctype="multipart/form-data">
-			<h2 class="form-signin-heading">Craete store</h2>
+			<h2 class="form-signin-heading">Create store</h2>
+             {% csrf_token %}
+			
+			<label for="name" class="sr-only">Store Name</label>
+            <input type="name" name="name" id="inputName" class="form-control" placeholder="Store Name" required autofocus>
             
-			{% crispy store_form %}
-							
+            <br />
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>				
         </form>
 {% endblock %}

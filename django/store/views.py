@@ -31,7 +31,6 @@ def profile(request):
     }
     return render_to_response('profile.html', context)
 
-
 @login_required
 def create_store(request):
     logger.debug('calling store.views.create_store()')
@@ -39,10 +38,10 @@ def create_store(request):
         store_form = StoreForm(data=request.POST)
         if store_form.is_valid():
             store = store_form.save(commit=False)
-#             store.owner = request.user.userProfile
+            store.owner = request.user
             print 'user = {0}'.format(vars(request.user))
-#             store.save()
-            return store.views.owner_profile(request)
+            store.save()
+            return owner_profile(request)
         else:
             print store_form.errors
             return HttpResponse("Create store is failed.")

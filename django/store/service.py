@@ -32,6 +32,8 @@ class MenuService:
 
             <ul class="nav navbar-nav">
                 <li><a href="/store/new">Create Store</a></li>
+                <li><a href="/store/join">Join Store</a></li>
+                <li><a href="/store/search">Search Store</a></li>
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
