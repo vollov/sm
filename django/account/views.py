@@ -1,42 +1,41 @@
-from django.http import HttpResponse
+from django.http import HttpResponse,Http404
 
 import logging
 logger = logging.getLogger(__name__)
-
-
-def index(request):
-    return HttpResponse("Rango says hey there world!")
 
 from account.forms import UserForm
 from models import UserProfile
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+
 from store.service import MenuService
 from account.forms import UserProfileForm, UserForm
 import store
 
-def register(request):
 
+def register(request):
+    """
+    user registration form
+    """
     if request.method == 'POST':
 
         user_form = UserForm(data=request.POST)
-        profile_form = UserProfileForm(data=request.POST)
+        
         if user_form.is_valid():
             human = True
-            
             user = user_form.save(commit=False)
             user.set_password(user.password)
             user.save()
-            
-            user_profile = profile_form.save(commit=False)
-            user_profile.user=user
-            user_profile.save()
             return store.views.profile(request)
 
         else:
-            print user_form.errors, profile_form.errors
-            return HttpResponse("Your registration is failed.")
+            print user_form.errors
+#             return HttpResponse("Your registration is failed.")
+            raise Http404("Your registration is failed.")
     # Not a HTTP POST, so we render our form using two ModelForm instances.
     # These forms will be blank, ready for user input.
     else:
@@ -44,18 +43,38 @@ def register(request):
         menu = MenuService.visitor_menu()
         
         user_form = UserForm()
-        profile_form = UserProfileForm()
     requestContext = RequestContext(request, {'menu':menu,
                                               'user_form': user_form, 
-                                              'page_title': 'Register',
-                                              'profile_form': profile_form} )
+                                              'page_title': 'Register'} )
 
     # Render the template depending on the context.
     return render_to_response('register.html', requestContext)
     
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
+@login_required
+def edit_profile(request):
+    """
+    user can edit profile after login
+    """
+    if request.method == 'POST':
+        profile_form = UserProfileForm(data=request.POST)
+        if profile_form.is_valid():
+            user_profile = profile_form.save(commit=False)
+            user_profile.user=user
+            user_profile.save()
+            return store.views.profile(request) 
+        else:
+            print profile_form.errors
+#             return HttpResponse("Edit profile is failed.")
+            raise Http404("Edit profile is failed.")
+    else:
+        # for visitor, generate empty menu
+        menu = MenuService.visitor_menu()
+        profile_form = UserProfileForm()
+    requestContext = RequestContext(request, {'menu':menu,
+                                              'page_title': 'Edit Profile',
+                                              'profile_form': profile_form} )
+    
+
 
 def sign_in(request):
     logger.debug('enter sign_in() {0}'.format(request))

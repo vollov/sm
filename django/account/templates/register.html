@@ -11,9 +11,7 @@
             Please correct the error{{ form.errors|pluralize }} below.
         </p>
     {% endif %}
-    
-    
-    
+
         <form class="form-signin" method="post" action="/account/register/"
                 enctype="multipart/form-data">
                 {% csrf_token %} 
@@ -22,22 +20,22 @@
             {{ user_form.username.errors }}
 			<label for="inputUsername" class="sr-only">Username</label>
 			{{ user_form.username }}
+			<br />
 			
 			{{ user_form.password.errors }}
 			<label for="inputPassword" class="sr-only">Password</label>
 			{{ user_form.password }}
+			<br />
 			
 			{{ user_form.email.errors }}
 			<label for="inputEmail" class="sr-only">Email</label>
 			{{ user_form.email }}
+	        <br />
 	        
-	        {{ profile_form.phone.errors }}
-			<label for="inputPhone" class="sr-only">Phone</label>
-			{{ profile_form.phone }}
-        
         	{{ user_form.captcha.errors }}
 			<label for="inputCaptcha" class="sr-only">Captcha</label>
 			{{ user_form.captcha }}
+			<br />
 			
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
             
