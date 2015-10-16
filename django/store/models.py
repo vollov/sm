@@ -7,6 +7,7 @@ class Store(models.Model):
                  default=uuid.uuid4)
     name = models.CharField(max_length=60, unique=True, null=True)
     owner = models.ForeignKey(User)
+    sales = models.ManyToManyField(User)
     created = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
     

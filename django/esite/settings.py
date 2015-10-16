@@ -167,3 +167,8 @@ MEDIA_ROOT = os.path.join(RESOURCE_ROOT,'media')
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 LOGIN_URL='/account/login/'
+
+FIXTURE_PATH = os.path.join(BASE_DIR,'fixture')
+FIXTURE_DIRS = (
+    FIXTURE_PATH,
+)

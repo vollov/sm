@@ -4,10 +4,23 @@ version 0.1 - one user can own/join one store only
 
 [2] menu options after login:
 
-{ajax} if user are both owner and sales: need select store(drop down) and role (owner, sales) 
-if user is owner: show [store, product, enroll sales] as edit  /store/store_id
-if user is user: show add store, product(read), order(edit), /store/sales/store_id
-if user is neither registered or isOwner, show add store. 
+v1 user can be either a owner or sales:
+
+after login
+if user.is_superuser(), goto /admin
+if user is owner: show [store, product, enroll sales] as edit  /store/owner/{store_id}  owner_profile
+if user is user: show add store, product(read), order(edit), /store/sales/{store_id}  sales_profile
+if user is neither registered or isOwner, show add store.    /store/user default_profile
+
+TODO: v2 a user can be both owner or sales
+=======================
+in Login view, use ProfileHelper to decide user role:
+
+if user.is_superuser(), goto /admin
+if user are both owner and sales: need select store(drop down) and role (owner, sales) , goto /account/switch-role
+if user is owner: show [store, product, enroll sales] as edit  /store/owner/{store_id}  owner_profile
+if user is user: show add store, product(read), order(edit), /store/sales/{store_id}  sales_profile
+if user is neither registered or isOwner, show add store.    /store/none default_profile
 
 /store/edit/:store_id edit
 /store/user/user_id/list/  list store_list

@@ -1,6 +1,6 @@
 import logging
 from django.shortcuts import render_to_response
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 
@@ -10,6 +10,8 @@ from service import MenuService
 from forms import StoreForm
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
+
+from .models import Store
 
 @login_required
 def profile(request):
@@ -60,7 +62,8 @@ def create_store(request):
     return render_to_response('new.html', requestContext)
 
 @login_required
-def owner_profile(request):
+def owner_profile(request, store_id):
+    
     logger.debug('calling store.views.create_store()')
 
 @login_required
@@ -97,19 +100,53 @@ def store_edit(request, user_id, store_id):
     logger.debug('calling store.views.store_list()')
 
 
-class ProfileHelper:
+class ProfileViewHelper:
     """
     Helper class to check user status and direct the view names
     """
+    def __init__(self, user):
+        self._user = user
     
-    def isStoreOwner(self, user):
+    
+    def direct_view(self):
+        """direct view"""
+        
+        owned_store = self.get_owned_stores()
+        joined_store = self.get_joined_stores()
+        if owned_store:
+            # view owner_profile
+            HttpResponseRedirect('/store/owner/{0}'.format(owned_store.id))
+        
+        if joined_store:
+            # view sales_profile
+            HttpResponseRedirect('/store/owner/{0}'.format(joined_store.id))
+        
+        # view profile()    
+        HttpResponseRedirect('/store/profile')
+        
+        
+    def is_owner(self):
         """ check if the user own stores, return true if user own store"""
+        return True
         
-    def isSales(self, user):
+    def is_sales(self, user):
         """ check if the user is a sales under a stores, return true if user is sales"""
+        return True
         
-    def getOwnedStores(self, user):
+    def get_owned_stores(self):
         """ fetch list of stores a user owned"""
-        
-    def getJoinedStores(self,user):
+        user_id = self._user.id
+        stores = Store.objects.filter(owner__id=user_id)
+        if stores:
+            return stores[0]
+        else:
+            return null
+
+    def get_joined_stores(self):
         """ fetch list of stores a user joined"""
+        user_id = self._user.id
+        stores = Store.objects.filter(sales__id=user_id)
+        if stores:
+            return stores[0]
+        else:
+            return null

@@ -48,3 +48,10 @@ class MenuService:
         
         """.format(user.username)
         return html
+    
+class ProfileHelper:
+    """
+    Helper class to check the user and direct the views
+    """ 
+    
+    
