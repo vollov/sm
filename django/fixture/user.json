@@ -1,6 +1,6 @@
 [
   {
-    "model": "django.contrib.auth.user",
+    "model": "auth.user",
     "pk": 1,
     "fields": {
       "username": "john",
@@ -9,7 +9,7 @@
     }
   },
   {
-    "model": "django.contrib.auth.user",
+    "model": "auth.user",
     "pk": 2,
     "fields": {
       "username": "anna",

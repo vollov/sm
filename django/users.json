@@ -1,0 +1,74 @@
+[
+{
+    "fields": {
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "last_login": "2015-10-15T18:55:14Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$TIJLXm3ljm4w$F8l9nnHjkItI2tDt0kq/hTYPcb7jdzjAPDoUTT8JMrc=",
+        "email": "dike.zhang@gmail.com",
+        "date_joined": "2015-10-02T18:01:19Z"
+    },
+    "model": "auth.user",
+    "pk": 1
+},
+{
+    "fields": {
+        "username": "dustin",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": null,
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$Kt7FgrPoyBN5$A03g8ITY1FpAYnw7K70oe+ZTL3PdTvUopHPx94ioMZ8=",
+        "email": "dustin@abc.com",
+        "date_joined": "2015-10-02T18:02:00Z"
+    },
+    "model": "auth.user",
+    "pk": 2
+},
+{
+    "fields": {
+        "username": "kate",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2015-10-15T19:15:33Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$sqEFJSdJnga4$ikNfD20XaFeqju8gegzOTOoSJ2jFDtgmyzwDfxb7z+E=",
+        "email": "kate@abc.com",
+        "date_joined": "2015-10-02T18:54:18Z"
+    },
+    "model": "auth.user",
+    "pk": 3
+},
+{
+    "fields": {
+        "username": "martin",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": null,
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$vWdJmeLoZDWO$nxV9fUgyfAY+6fp2lpxUAUhwbxTBDjieX4ImOCEgWcM=",
+        "email": "martin@abc.com",
+        "date_joined": "2015-10-07T18:06:18Z"
+    },
+    "model": "auth.user",
+    "pk": 4
+}
+]

@@ -32,6 +32,7 @@ class UserTestCase(TestCase):
         
         john = authenticate(username='john', password='testpassword')
         expected_email = 'john@abc.com'
+        print 'expected_email={0}'.format(john.email)
         self.assertEqual(john.email,expected_email,'email for test_user_auth should be john@abc.com')
         self.assertTrue(john.is_active,'user john should be active')
         
