@@ -22,22 +22,21 @@ class UserManuTestCase(TestCase):
         
 class UserTestCase(TestCase):
     
-    fixtures = ['user.json', ]
+    fixtures = ['user.json', 'store.json']
     
     def setUp(self):
-        print 'UserTestCase.setup'
+        print 'UserTestCase.setUp()'
         
     def test_user_auth(self):
         """user are correctly identified"""
         
-        john = authenticate(username='john', password='testpassword')
-        expected_email = 'john@abc.com'
-        print 'expected_email={0}'.format(john.email)
-        self.assertEqual(john.email,expected_email,'email for test_user_auth should be john@abc.com')
-        self.assertTrue(john.is_active,'user john should be active')
+        martin = authenticate(username='martin', password='testpassword')
+        expected_email = 'martin@abc.com'
         
-
+        self.assertEqual(martin.email,expected_email,'email for martin should be '+ expected_email)
+        self.assertTrue(martin.is_active,'user martin should be active')
         
+     
 ## test suits for forms ##
 
 class TestUserForm(TestCase):

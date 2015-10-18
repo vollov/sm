@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from models import Store
+from models import Store, StoreEnrollment
 
 class StoreAdmin(admin.ModelAdmin):
     
@@ -18,6 +18,8 @@ class StoreAdmin(admin.ModelAdmin):
     actions = [activate]
     list_display = ['id','name', 'created', 'active']   
 
+class StoreEnrollmentAdmin(admin.ModelAdmin):
+    list_display = ['id','created', 'active']   
 
 admin.site.register(Store, StoreAdmin)
-
+admin.site.register(StoreEnrollment, StoreEnrollmentAdmin)

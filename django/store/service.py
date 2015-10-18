@@ -1,4 +1,12 @@
 
+
+class StoreService:
+    """
+    Interface for store service.
+    """
+    
+    
+
 class MenuService:
     
     @staticmethod

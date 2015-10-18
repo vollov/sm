@@ -1,20 +1,74 @@
 [
-  {
-    "model": "auth.user",
-    "pk": 1,
+{
     "fields": {
-      "username": "john",
-      "email": "john@abc.com",
-      "password": "testpassword"
-    }
-  },
-  {
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "last_login": "2015-10-17T03:33:59Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$IOF2Aq17GcD7$GQVWwXBWy54d5oykET7qqpTdzUa1n9Ef6CZ02cY2FrY=",
+        "email": "dike.zhang@gmail.com",
+        "date_joined": "2015-10-09T02:46:00Z"
+    },
     "model": "auth.user",
-    "pk": 2,
+    "pk": 1
+},
+{
     "fields": {
-      "username": "anna",
-      "email": "anna@abc.com",
-      "password": "testpassword"
-    }
-  }
+        "username": "kate",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2015-10-09T03:30:23Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$udiS9w0kzeEx$TveKRxsW9T4c/epVQXygY947Yv2h98n/h7zrtJaiZEM=",
+        "email": "kate@abc.com",
+        "date_joined": "2015-10-09T03:26:14Z"
+    },
+    "model": "auth.user",
+    "pk": 3
+},
+{
+    "fields": {
+        "username": "martin",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2015-10-09T03:28:57Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$YkAYl8KZ9t3x$8BwexcpjFJCBqMUfHXWW+PKPR3EHpriuAdhTywGZCEw=",
+        "email": "martin@abc.com",
+        "date_joined": "2015-10-09T03:27:53Z"
+    },
+    "model": "auth.user",
+    "pk": 4
+},
+{
+    "fields": {
+        "username": "anna",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": null,
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$kGh058tgKOmi$At2EinfAG8nHUimCv7Ed/AcXR9WtrjrW8AUJnl1B9yk=",
+        "email": "anna@abc.com",
+        "date_joined": "2015-10-17T03:54:37Z"
+    },
+    "model": "auth.user",
+    "pk": 5
+}
 ]
