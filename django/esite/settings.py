@@ -86,8 +86,8 @@ USE_L10N = True
 USE_TZ = True
 
 # define resource root
-RESOURCE_ROOT='/opt/www/sm/'
-#RESOURCE_ROOT='c:/opt/var/www/sm/'
+#RESOURCE_ROOT='/opt/www/sm/'
+RESOURCE_ROOT='c:/opt/var/www/sm/'
 # Logging settings for development
 """
 DEBUG: Low level system information for debugging purposes

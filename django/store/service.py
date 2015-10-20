@@ -8,6 +8,11 @@ class StoreService:
     
 
 class MenuService:
+    """
+        1) new_user:  add_store, join_store
+        2) owner: product(l,e), order(r), 
+        3) sales: order(l,e), customer(l,e)
+    """
     
     @staticmethod
     def visitor_menu():
@@ -23,17 +28,65 @@ class MenuService:
         return html
     
     @staticmethod
-    def owner_menu():
-        html = ""
+    def owner_menu(user, store):
+        html = """
+        
+        <div id="navbar" class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav">
+                <li><a href="/sales/product/new/{1}">Add Product</a></li>
+                <li><a href="/sales/products/{1}">Products</a></li>
+                <li><a href="/sales/orders/{1}">Products</a></li>
+            </ul>
+            
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <p class="navbar-text ">Signed in as owner {0}</p>
+                </li>
+                <li>
+                    <p class="navbar-text ">In Store: {2}</p>
+                </li>
+                <li>
+                    <button onclick="window.location.href='/account/logout'" type="button" class="btn btn-default navbar-btn">Logout</button>
+                </li>
+            </ul>
+        </div>
+        
+        """.format(user.username, store.id, store.name)
         return html
     
     @staticmethod
-    def sales_menu():
-        html = ""
+    def sales_menu(user, store):
+        html = """
+        
+        <div id="navbar" class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav">
+                <li><a href="/sales/customer/new/{1}">Add Customer</a></li>
+                <li><a href="/sales/customers/{1}">Customers</a></li>
+                <li><a href="/sales/order/add/{1}">Create order</a></li>
+                <li><a href="/sales/orders/{1}">Orders</a></li>
+            </ul>
+            
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <p class="navbar-text ">Signed in as agent {0}</p>
+                </li>
+                <li>
+                    <p class="navbar-text ">In Store: {2}</p>
+                </li>
+                <li>
+                    <button onclick="window.location.href='/account/logout'" type="button" class="btn btn-default navbar-btn">Logout</button>
+                </li>
+            </ul>
+        </div>
+        
+        """.format(user.username, store.id, store.name)
+        
         return html
     
     @staticmethod
-    def new_user_menu(user):
+    def unapproved_sales_menu(user, store):
         html = """
         
         <div id="navbar" class="navbar-collapse collapse">
@@ -41,12 +94,11 @@ class MenuService:
             <ul class="nav navbar-nav">
                 <li><a href="/store/new">Create Store</a></li>
                 <li><a href="/store/join">Join Store</a></li>
-                <li><a href="/store/search">Search Store</a></li>
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <p class="navbar-text ">Signed in as {0}</p>
+                    <p class="navbar-text ">Signed in as unapproved agent {0}</p>
                 </li>
                 <li>
                     <button onclick="window.location.href='/account/logout'" type="button" class="btn btn-default navbar-btn">Logout</button>
@@ -56,10 +108,29 @@ class MenuService:
         
         """.format(user.username)
         return html
-    
-class ProfileHelper:
-    """
-    Helper class to check the user and direct the views
-    """ 
+        
+    @staticmethod
+    def new_user_menu(user):
+        html = """
+        
+        <div id="navbar" class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav">
+                <li><a href="/store/new">Create Store</a></li>
+                <li><a href="/store/join">Join Store</a></li>
+            </ul>
+            
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <p class="navbar-text ">Signed in as new user {0}</p>
+                </li>
+                <li>
+                    <button onclick="window.location.href='/account/logout'" type="button" class="btn btn-default navbar-btn">Logout</button>
+                </li>
+            </ul>
+        </div>
+        
+        """.format(user.username)
+        return html
     
     

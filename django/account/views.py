@@ -14,6 +14,8 @@ from django.contrib.auth.decorators import login_required
 
 from store.service import MenuService
 from account.forms import UserProfileForm, UserForm
+
+from store.views import ProfileViewHelper
 import store
 
 
@@ -102,7 +104,9 @@ def sign_in(request):
                 # We'll send the user back to the homepage.
                 logger.debug('user active, login() {0}, {1}'.format(request, user))
                 login(request, user)
-                return HttpResponseRedirect('/store/profile/')
+                #return HttpResponseRedirect('/store/profile/')
+                profileViewHelper = ProfileViewHelper(user)
+                return profileViewHelper.direct_view(request)
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your account is disabled.")

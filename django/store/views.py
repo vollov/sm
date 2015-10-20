@@ -11,27 +11,9 @@ from forms import StoreForm
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 
-from .models import Store
+from .models import Store, StoreEnrollment
+from sales.models import Customer
 
-@login_required
-def profile(request):
-    logger.debug('calling store.views.profile()')
-    
-    user_name = 'visitor'
-    if request.user.is_authenticated():
-        current_user = request.user
-        logger.debug('page.views.profile() - user {0} login'.format(current_user.username))
-    else:
-        logger.debug('page.views.profile() - user not login')
-    
-    print 'user = {0}'.format(vars(request.user))   
-    menu = MenuService.new_user_menu(request.user)
-    context = {
-        'menu':menu,
-        'page_title': 'Profile',
-        'user': current_user,
-    }
-    return render_to_response('profile.html', context)
 
 @login_required
 def create_store(request):
@@ -56,25 +38,111 @@ def create_store(request):
         
     requestContext = RequestContext(request, {'menu':menu,
                                               'store_form': store_form, 
-                                              'page_title': 'Create Store'} )
+                                              'page_title': 'Create store'} )
 
     # Render the template depending on the context.
     return render_to_response('new.html', requestContext)
 
-@login_required
-def owner_profile(request, store_id):
+class Enrollment:
     
-    logger.debug('calling store.views.create_store()')
-
-@login_required
-def sales_profile(request):
-    logger.debug('calling store.views.create_store()')
+    def __init__(self, id, username, email, status):
+        self.id = id
+        self.username = username
+        self.email = email
+        self.status = status
         
 @login_required
-def mix_profile(request):
+def profile(request):
+    logger.debug('calling store.views.profile()')
+    
+    user_name = 'visitor'
+#     if request.user.is_authenticated():
+#         current_user = request.user
+#         logger.debug('page.views.profile() - user {0} login'.format(current_user.username))
+#     else:
+#         logger.debug('page.views.profile() - user not login')
+    
+#     print 'user = {0}'.format(vars(request.user))   
+    menu = MenuService.new_user_menu(request.user)
+    context = {
+        'menu':menu,
+        'page_title': 'User profile',
+        'user': request.user,
+    }
+    return render_to_response('profile.html', context)
+
+
+@login_required
+def owner_profile(request, store):
+    """
+    Default view show list of sales person in store, button to enable/disable sales.
+    TODO: show store statistics: 
+    1.number of customers
+    2.number of orders
+    3.total profits
+    4.return ratio
+    """
+    #list sales agents
+    enrollments = StoreEnrollment.objects.filter(store_id = store.id)
+    
+    enrolls = []
+    for item in enrollments:
+        enroll = Enrollment(item.id, item.agent.username, item.agent.email, item.active)
+#         user = User.objects.get(id = enroll.agent.id)
+        enrolls.append(enroll)
+    
+    # compute the menu
+    menu = MenuService.owner_menu(request.user, store)
+    
     logger.debug('calling store.views.create_store()')
+    requestContext = RequestContext(request, {'menu':menu,
+                                              'store':store,
+                                              'enrolls': enrolls,
+                                              'user': request.user, 
+                                              'page_title': 'Owner profile'} )
 
+    return render_to_response('owner-profile.html', requestContext)
 
+@login_required
+def unapproved_agent_profile(request,store):
+    menu = MenuService.unapproved_sales_menu(request.user, store)
+    
+    logger.debug('calling store.views.unapproved_agent_profile()')
+        
+    requestContext = RequestContext(request, {'menu':menu,
+                                              'store':store,
+                                              'user': request.user, 
+                                              'page_title': 'Unapproved agent profile'} )
+
+    return render_to_response('unapproved-agent-profile.html', requestContext)
+
+@login_required
+def agent_profile(request,store):
+    """
+    Default view show list of customers, order button for customer.
+    TODO: show store statistics: 
+    1.number of customers
+    2.number of orders
+    3.total profits
+    4.return ratio
+    """
+    
+    # list all customer of this agent
+    user = request.user
+    customers = Customer.objects.filter(agent_id = user.id,store_id = store.id)
+    
+    # compute the menu
+    menu = MenuService.sales_menu(request.user, store)    
+    
+    logger.debug('calling store.views.agent_profile()')
+        
+    requestContext = RequestContext(request, {'menu':menu,
+                                              'customers': customers,
+                                              'store':store,
+                                              'user': request.user, 
+                                              'page_title': 'Agent profile'} )
+
+    return render_to_response('agent-profile.html', requestContext)
 
 @login_required
 #@permission_required('store.enlist')
@@ -120,23 +188,35 @@ class ProfileViewHelper:
         joined_store = self.get_joined_stores()
         if owned_store:
             # view owner_profile
-            HttpResponseRedirect('/store/owner/{0}'.format(owned_store.id))
+            # HttpResponseRedirect('/store/owner/{0}'.format(owned_store.id))
+            
+            return owner_profile(request, owned_store)
         
         if joined_store:
             # view sales_profile
-            HttpResponseRedirect('/store/sales/{0}'.format(joined_store.id))
+            #HttpResponseRedirect('/store/sales/{0}'.format(joined_store.id))
+            
+            if self.is_approved_agent(joined_store.id):
+                return agent_profile(request, joined_store)
+            else:
+                return unapproved_agent_profile(request, joined_store)
         
         # view profile()    
-        HttpResponseRedirect('/store/profile')
+        #HttpResponseRedirect('/store/profile')
+        return profile(request)
         
         
     def is_owner(self):
         """ check if the user own stores, return true if user own store"""
         return True
         
-    def is_sales(self, user):
-        """ check if the user is a sales under a stores, return true if user is sales"""
-        return True
+    def is_approved_agent(self, store_id):
+        """ check if the agent is approved by owner"""
+        enrollments = StoreEnrollment.objects.filter(store_id = store_id, agent_id=self._user.id, active=True)
+        if enrollments:
+            return True
+        else:
+            return False
         
     def get_owned_stores(self):
         """ fetch list of stores a user owned"""
@@ -145,7 +225,7 @@ class ProfileViewHelper:
         if stores:
             return stores[0]
         else:
-            return null
+            return None
 
     def get_joined_stores(self):
         """ fetch list of stores a user joined"""
@@ -154,4 +234,32 @@ class ProfileViewHelper:
         if stores:
             return stores[0]
         else:
-            return null
+            return None
+        
+@login_required
+def add_customer(request, store_id):
+    """
+    agent can add user after login.
+    
+    method assumes user is already approved. 
+    """
+    user = request.user
+    
+    if request.method == 'POST':
+        profile_form = UserProfileForm(data=request.POST)
+        if profile_form.is_valid():
+            user_profile = profile_form.save(commit=False)
+            user_profile.user=user
+            user_profile.save()
+            return store.views.profile(request) 
+        else:
+            print profile_form.errors
+#             return HttpResponse("Edit profile is failed.")
+            raise Http404("Edit profile is failed.")
+    else:
+        # for visitor, generate empty menu
+        menu = MenuService.visitor_menu()
+        profile_form = UserProfileForm()
+    requestContext = RequestContext(request, {'menu':menu,
+                                              'page_title': 'Edit Profile',
+                                              'profile_form': profile_form} )

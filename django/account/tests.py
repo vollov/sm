@@ -66,15 +66,46 @@ class TestLoginView(TestCase):
         print 'TestLoginView.setUp()'
         self._client = Client()
         
-    def test_login(self):
-        
+    def test_owner_login(self):        
         response = self._client.post('/account/login/', {'username': 'kate', 'password': 'testpassword'})
-        expected_status_code = 302
-        self.assertEqual(response.status_code, expected_status_code,'page should be re-directed')
-        print response.status_code
-        print response.content
-#         response.context['page_title']    
-            
+        expected_status_code = 200
+        self.assertEqual(response.status_code, expected_status_code,'response status code should be 200')
+        #print response.status_code
+
+        #print 'page_title= {0}'.format(response.context['page_title'])    
+        expected_page_title = 'Owner profile'
+        self.assertEqual(response.context['page_title'], expected_page_title,'page title should be ' +  expected_page_title)
+
+    def test_agent_login(self):        
+        response = self._client.post('/account/login/', {'username': 'skyler', 'password': 'testpassword'})
+        expected_status_code = 200
+        self.assertEqual(response.status_code, expected_status_code,'response status code should be 200')
+        #print response.status_code
+ 
+        #print 'page_title= {0}'.format(response.context['page_title'])    
+        expected_page_title = 'Agent profile'
+        self.assertEqual(response.context['page_title'], expected_page_title,'page title should be ' +  expected_page_title)
+           
+    def test_unapproved_agent_login(self):        
+        response = self._client.post('/account/login/', {'username': 'anna', 'password': 'testpassword'})
+        expected_status_code = 200
+        self.assertEqual(response.status_code, expected_status_code,'response status code should be 200')
+        #print response.status_code
+
+        #print 'page_title= {0}'.format(response.context['page_title'])    
+        expected_page_title = 'Unapproved agent profile'
+        self.assertEqual(response.context['page_title'], expected_page_title,'page title should be ' +  expected_page_title)
+             
+    def test_user_login(self):        
+        response = self._client.post('/account/login/', {'username': 'martin', 'password': 'testpassword'})
+        expected_status_code = 200
+        self.assertEqual(response.status_code, expected_status_code,'response status code should be 200')
+        #print response.status_code
+
+        print 'page_title= {0}'.format(response.context['page_title'])    
+        expected_page_title = 'User profile'
+        self.assertEqual(response.context['page_title'], expected_page_title,'page title should be' +  expected_page_title)
+         
 # class UserProfileForm(TestCase):
 #     def test_forms(self):
 #         user_form_data = {'username': 'martin',
