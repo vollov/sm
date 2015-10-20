@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 # Test models
-from .models import Store, StoreEnrollment
+from .models import Product, Order
 from django.contrib.auth.models import User
    
 class ProductTestCase(TestCase):

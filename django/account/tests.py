@@ -52,32 +52,54 @@ class TestUserForm(TestCase):
             print user_form.errors
         else:
             self.assertTrue(user_form.is_valid())
+    
+     
+## test suits for views ##
+from django.test import Client
+from django.core.urlresolvers import reverse
+
+class TestLoginView(TestCase):
+    
+    fixtures = ['user.json', 'store.json']
+    
+    def setUp(self):
+        print 'TestLoginView.setUp()'
+        self._client = Client()
+        
+    def test_login(self):
+        
+        response = self._client.post('/account/login/', {'username': 'kate', 'password': 'testpassword'})
+        expected_status_code = 302
+        self.assertEqual(response.status_code, expected_status_code,'page should be re-directed')
+        print response.status_code
+        print response.content
+#         response.context['page_title']    
             
-class UserProfileForm(TestCase):
-    def test_forms(self):
-        user_form_data = {'username': 'martin',
-                     'email':'martin@abc.com',
-                     'password':'pwd123',
-                     'captcha_0':'dummy-value',
-                     'captcha_1':'PASSED'}
-        
-        
-        form_data = {
-                    'phone': '5196667788',
-                     #'user':user
-#                      'username': 'martin',
+# class UserProfileForm(TestCase):
+#     def test_forms(self):
+#         user_form_data = {'username': 'martin',
 #                      'email':'martin@abc.com',
 #                      'password':'pwd123',
 #                      'captcha_0':'dummy-value',
-#                      'captcha_1':'PASSED'
-                     }
-        user_form = UserForm(data=user_form_data)
-        
-        profile_form = UserProfileForm(data=form_data)
-        
-        user = user_form.save(commit=False)
-        
-        if not profile_form.is_valid():
-            print profile_form.errors
-        else:
-            self.assertTrue(profile_form.is_valid())
+#                      'captcha_1':'PASSED'}
+#         
+#         
+#         form_data = {
+#                     'phone': '5196667788',
+#                      #'user':user
+# #                      'username': 'martin',
+# #                      'email':'martin@abc.com',
+# #                      'password':'pwd123',
+# #                      'captcha_0':'dummy-value',
+# #                      'captcha_1':'PASSED'
+#                      }
+#         user_form = UserForm(data=user_form_data)
+#         
+#         profile_form = UserProfileForm(data=form_data)
+#         
+#         user = user_form.save(commit=False)
+#         
+#         if not profile_form.is_valid():
+#             print profile_form.errors
+#         else:
+#             self.assertTrue(profile_form.is_valid())

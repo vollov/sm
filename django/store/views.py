@@ -108,8 +108,13 @@ class ProfileViewHelper:
         self._user = user
     
     
-    def direct_view(self):
-        """direct view"""
+    def direct_view(self, request):
+        """direct view
+        
+        return a dict for profile to process {'view_url': m, 'template':t ,'store_id': s }
+        
+        directly call view method
+        """
         
         owned_store = self.get_owned_stores()
         joined_store = self.get_joined_stores()
@@ -119,7 +124,7 @@ class ProfileViewHelper:
         
         if joined_store:
             # view sales_profile
-            HttpResponseRedirect('/store/owner/{0}'.format(joined_store.id))
+            HttpResponseRedirect('/store/sales/{0}'.format(joined_store.id))
         
         # view profile()    
         HttpResponseRedirect('/store/profile')
