@@ -20,3 +20,22 @@ class OrderTestCase(TestCase):
 #         store = Store(name="Anna Fish Store")
 #         store.owner = anna
 #         store.save()
+
+
+## test suits for forms ##
+from .forms import CustomerForm
+
+class CustomerFormTestCase(TestCase):
+    
+    def test_forms(self):
+        form_data = {'name': 'martin zhang',
+                     'sin':'11223344556677',
+                     'address':'king st, kitchener, ontario',
+                     'phone':'519-616-1234'}
+        
+        customer_form = CustomerForm(data=form_data)
+        
+        if not customer_form.is_valid():
+            print customer_form.errors
+        else:
+            self.assertTrue(customer_form.is_valid())
