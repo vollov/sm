@@ -73,7 +73,7 @@ def profile(request):
 
 
 @login_required
-def owner_profile(request, store):
+def owner_profile(request):
     """
     Default view show list of sales person in store, button to enable/disable sales.
     TODO: show store statistics: 
@@ -82,6 +82,9 @@ def owner_profile(request, store):
     3.total profits
     4.return ratio
     """
+    
+    store = request.session['current_store']
+    
     #list sales agents
     enrollments = StoreEnrollment.objects.filter(store_id = store.id)
     
@@ -94,7 +97,7 @@ def owner_profile(request, store):
     # compute the menu
     menu = MenuService.owner_menu(request.user, store)
     
-    logger.debug('calling store.views.create_store()')
+    logger.debug('calling store.views.owner_profile()')
     requestContext = RequestContext(request, {'menu':menu,
                                               'store':store,
                                               'enrolls': enrolls,
@@ -104,9 +107,9 @@ def owner_profile(request, store):
     return render_to_response('owner-profile.html', requestContext)
 
 @login_required
-def unapproved_agent_profile(request,store):
+def unapproved_agent_profile(request):
     menu = MenuService.unapproved_sales_menu(request.user, store)
-    
+    store = request.session['current_store']
     logger.debug('calling store.views.unapproved_agent_profile()')
         
     requestContext = RequestContext(request, {'menu':menu,
@@ -117,7 +120,7 @@ def unapproved_agent_profile(request,store):
     return render_to_response('unapproved-agent-profile.html', requestContext)
 
 @login_required
-def agent_profile(request,store):
+def agent_profile(request):
     """
     Default view show list of customers, order button for customer.
     TODO: show store statistics: 
@@ -130,6 +133,7 @@ def agent_profile(request,store):
     # list all customer of this agent
     user = request.user
     customers = Customer.objects.filter(agent_id = user.id,store_id = store.id)
+    store = request.session['current_store']
     
     # compute the menu
     menu = MenuService.sales_menu(request.user, store)    
@@ -168,6 +172,7 @@ def store_edit(request, user_id, store_id):
     logger.debug('calling store.views.store_list()')
 
 
+
 class ProfileViewHelper:
     """
     Helper class to check user status and direct the view names
@@ -182,28 +187,40 @@ class ProfileViewHelper:
         return a dict for profile to process {'view_url': m, 'template':t ,'store_id': s }
         
         directly call view method
-        """
         
+        sessions:
+        fav_color = request.session['fav_color']
+        request.session['has_commented'] = True
+        del request.session['member_id']
+        
+        """
+
+        request.session['current_user'] = self._user
+         
         owned_store = self.get_owned_stores()
         joined_store = self.get_joined_stores()
         if owned_store:
             # view owner_profile
-            # HttpResponseRedirect('/store/owner/{0}'.format(owned_store.id))
+            request.session['current_store'] = owned_store
             
-            return owner_profile(request, owned_store)
+#             HttpResponseRedirect('/store/owner/')
+            return owner_profile(request)
         
         if joined_store:
             # view sales_profile
-            #HttpResponseRedirect('/store/sales/{0}'.format(joined_store.id))
+            #
+            request.session['current_store'] = joined_store
             
             if self.is_approved_agent(joined_store.id):
-                return agent_profile(request, joined_store)
+#                 HttpResponseRedirect('/store/agent/')
+                return agent_profile(request)
             else:
-                return unapproved_agent_profile(request, joined_store)
+#                 HttpResponseRedirect('/store/unapproved-agent/')
+                return unapproved_agent_profile(request)
         
         # view profile()    
-        #HttpResponseRedirect('/store/profile')
-        return profile(request)
+        HttpResponseRedirect('/store/profile/')
+#         return profile(request)
         
         
     def is_owner(self):

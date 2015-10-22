@@ -9,6 +9,5 @@ urlpatterns = patterns('',
     url(r'^login/$', views.sign_in, name='sign_in'),
     url(r'^logout/$', views.user_logout, name='logout'),
 #     url(r'^vehicle/(?P<oid>\S+)/$', views.vehicle, name='vehicle'),
-
-
+    
 )

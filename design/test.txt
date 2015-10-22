@@ -1,3 +1,29 @@
 python manage.py dumpdata auth.User --indent 4 > user.json
 
 python manage.py loaddata user.json
+
+
+
+@login_required
+def edit_profile(request):
+    """
+    user can edit profile after login
+    """
+    if request.method == 'POST':
+        profile_form = UserProfileForm(data=request.POST)
+        if profile_form.is_valid():
+            user_profile = profile_form.save(commit=False)
+            user_profile.user=user
+            user_profile.save()
+            return store.views.profile(request) 
+        else:
+            print profile_form.errors
+#             return HttpResponse("Edit profile is failed.")
+            raise Http404("Edit profile is failed.")
+    else:
+        # for visitor, generate empty menu
+        menu = MenuService.visitor_menu()
+        profile_form = UserProfileForm()
+    requestContext = RequestContext(request, {'menu':menu,
+                                              'page_title': 'Edit Profile',
+                                              'profile_form': profile_form} )

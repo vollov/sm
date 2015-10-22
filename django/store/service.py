@@ -59,24 +59,24 @@ class MenuService:
     def sales_menu(user, store):
         html = """
         
-        <div id="navbar" class="navbar-collapse collapse">
+        <div id='navbar' class='navbar-collapse collapse'>
 
-            <ul class="nav navbar-nav">
-                <li><a href="/sales/customer/new/{1}">Add Customer</a></li>
-                <li><a href="/sales/customers/{1}">Customers</a></li>
-                <li><a href="/sales/order/add/{1}">Create order</a></li>
-                <li><a href="/sales/orders/{1}">Orders</a></li>
+            <ul class='nav navbar-nav'>
+                <li><a href='/sales/customer/new/""" + store.id + """'>Add Customer</a></li>
+                <li><a href='/sales/customers/""" + store.id + """'>Customers</a></li>
+                <li><a href='/sales/order/add/""" + store.id + """'>Create order</a></li>
+                <li><a href='/sales/orders/""" + store.id + """'>Orders</a></li>
             </ul>
             
-            <ul class="nav navbar-nav navbar-right">
+            <ul class='nav navbar-nav navbar-right'>
                 <li>
-                    <p class="navbar-text ">Signed in as agent {0}</p>
+                    <p class='navbar-text '>Signed in as agent {0}</p>
                 </li>
                 <li>
-                    <p class="navbar-text ">In Store: {2}</p>
+                    <p class='navbar-text '>In Store: {2}</p>
                 </li>
                 <li>
-                    <button onclick="window.location.href='/account/logout'" type="button" class="btn btn-default navbar-btn">Logout</button>
+                    <button onclick='window.location.href='/account/logout'' type='button' class='btn btn-default navbar-btn'>Logout</button>
                 </li>
             </ul>
         </div>

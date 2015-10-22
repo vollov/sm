@@ -51,32 +51,9 @@ def register(request):
 
     # Render the template depending on the context.
     return render_to_response('register.html', requestContext)
-    
-@login_required
-def edit_profile(request):
-    """
-    user can edit profile after login
-    """
-    if request.method == 'POST':
-        profile_form = UserProfileForm(data=request.POST)
-        if profile_form.is_valid():
-            user_profile = profile_form.save(commit=False)
-            user_profile.user=user
-            user_profile.save()
-            return store.views.profile(request) 
-        else:
-            print profile_form.errors
-#             return HttpResponse("Edit profile is failed.")
-            raise Http404("Edit profile is failed.")
-    else:
-        # for visitor, generate empty menu
-        menu = MenuService.visitor_menu()
-        profile_form = UserProfileForm()
-    requestContext = RequestContext(request, {'menu':menu,
-                                              'page_title': 'Edit Profile',
-                                              'profile_form': profile_form} )
-    
 
+from django.core.urlresolvers import reverse
+from django.shortcuts import redirect
 
 def sign_in(request):
     logger.debug('enter sign_in() {0}'.format(request))
@@ -106,7 +83,7 @@ def sign_in(request):
                 login(request, user)
                 #return HttpResponseRedirect('/store/profile/')
                 profileViewHelper = ProfileViewHelper(user)
-                return profileViewHelper.direct_view(request)
+                profileViewHelper.direct_view(request)
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your account is disabled.")

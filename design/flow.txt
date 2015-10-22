@@ -39,3 +39,13 @@ steps
 2) user profile admin
 3) registration
 4) login
+
+
+url design:
+
+1) store_id stored in session, current menu stored in session? how to decide menu for each page? 
+
+============================================
+[1]sales
+/sales/customer/new/{store_id}
+/sales/customers/{store_id}

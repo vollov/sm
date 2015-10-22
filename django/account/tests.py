@@ -7,7 +7,7 @@ from captcha.models import CaptchaStore
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
-class UserManuTestCase(TestCase):
+class UserModelTestCase(TestCase):
     def setUp(self):
         john = User.objects.create_user('john', 'john@abc.com', 'testpassword')
         eddy = User.objects.create_user('eddy', 'eddy@abc.com', 'testpassword')
@@ -20,7 +20,8 @@ class UserManuTestCase(TestCase):
         self.assertEqual(john.email,expected_email,'email for test_user_auth should be john@abc.com')
         self.assertTrue(john.is_active,'user john should be active')
         
-class UserTestCase(TestCase):
+class UserFixtureTestCase(TestCase):
+    """Test user model with fixture"""
     
     fixtures = ['user.json', 'store.json']
     
@@ -66,7 +67,13 @@ class TestLoginView(TestCase):
         print 'TestLoginView.setUp()'
         self._client = Client()
         
-    def test_owner_login(self):        
+    def test_owner_login(self):
+        
+#         self._client.post('/account/login/', {'username': 'kate', 'password': 'testpassword'})
+#         response = self.client.get('/store/owner/')
+
+#         self.assertRedirects(response, expected_url=reverse('account.views.sign_in'), status_code=302, target_status_code=200)
+        
         response = self._client.post('/account/login/', {'username': 'kate', 'password': 'testpassword'})
         expected_status_code = 200
         self.assertEqual(response.status_code, expected_status_code,'response status code should be 200')
