@@ -5,21 +5,10 @@ from .forms import CustomerForm
 @login_required
 def customer_form(request):
     """
-    agent can add customer
+    agent pull customer form
     """
     
-    if request.method == 'POST':
-        customer_form = CustomerForm(data=request.POST)
-        if customer_form.is_valid():
-            customer = customer_form.save(commit=False)
-            customer.user=user
-            user_profile.save()
-            return store.views.profile(request) 
-        else:
-            print profile_form.errors
-#             return HttpResponse("Edit profile is failed.")
-            raise Http404("Edit profile is failed.")
-    else:
+
         # for 
         menu = MenuService.visitor_menu()
         profile_form = UserProfileForm()
@@ -29,4 +18,27 @@ def customer_form(request):
     
 @login_required
 def save_customer(request):
-
+    """
+    agent save customer
+    """
+    if request.method == 'POST':
+        user = request.user
+        store_id = request.session['current_store_id']
+        store = Store.objects.get(id = store_id)
+    
+        customer_form = CustomerForm(data=request.POST)
+        if customer_form.is_valid():
+            customer = customer_form.save(commit=False)
+            customer.agent = user
+            customer.store = store
+            customer.save()
+            
+            # redirect to customer list page 
+            return store.views.profile(request) 
+        else:
+            print profile_form.errors
+#             return HttpResponse("Edit profile is failed.")
+            raise Http404("Edit profile is failed.")
+    else:
+        logger.error('Can not save customer via HTTP get.')
+        raise Http404('Can not save customer via HTTP get.')
