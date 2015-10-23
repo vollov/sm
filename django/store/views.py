@@ -55,14 +55,6 @@ class Enrollment:
 def profile(request):
     logger.debug('calling store.views.profile()')
     
-    user_name = 'visitor'
-#     if request.user.is_authenticated():
-#         current_user = request.user
-#         logger.debug('page.views.profile() - user {0} login'.format(current_user.username))
-#     else:
-#         logger.debug('page.views.profile() - user not login')
-    
-#     print 'user = {0}'.format(vars(request.user))   
     menu = MenuService.new_user_menu(request.user)
     context = {
         'menu':menu,
@@ -83,10 +75,10 @@ def owner_profile(request):
     4.return ratio
     """
     
-    store = request.session['current_store']
-    
+    store_id = request.session['current_store_id']
+    store = Store.objects.get(id = store_id)
     #list sales agents
-    enrollments = StoreEnrollment.objects.filter(store_id = store.id)
+    enrollments = StoreEnrollment.objects.filter(store_id = store_id)
     
     enrolls = []
     for item in enrollments:
@@ -108,8 +100,11 @@ def owner_profile(request):
 
 @login_required
 def unapproved_agent_profile(request):
+    store_id = request.session['current_store_id']
+    store = Store.objects.get(id = store_id)
+    
     menu = MenuService.unapproved_sales_menu(request.user, store)
-    store = request.session['current_store']
+    
     logger.debug('calling store.views.unapproved_agent_profile()')
         
     requestContext = RequestContext(request, {'menu':menu,
@@ -132,8 +127,10 @@ def agent_profile(request):
     
     # list all customer of this agent
     user = request.user
-    customers = Customer.objects.filter(agent_id = user.id,store_id = store.id)
-    store = request.session['current_store']
+    store_id = request.session['current_store_id']
+    store = Store.objects.get(id = store_id)
+    
+    customers = Customer.objects.filter(agent_id = user.id,store_id = store_id)
     
     # compute the menu
     menu = MenuService.sales_menu(request.user, store)    
@@ -195,32 +192,26 @@ class ProfileViewHelper:
         
         """
 
-        request.session['current_user'] = self._user
-         
         owned_store = self.get_owned_stores()
         joined_store = self.get_joined_stores()
         if owned_store:
             # view owner_profile
-            request.session['current_store'] = owned_store
+            request.session['current_store_id'] = owned_store.id
             
-#             HttpResponseRedirect('/store/owner/')
             return owner_profile(request)
         
         if joined_store:
             # view sales_profile
-            #
-            request.session['current_store'] = joined_store
+            
+            request.session['current_store_id'] = joined_store.id
             
             if self.is_approved_agent(joined_store.id):
-#                 HttpResponseRedirect('/store/agent/')
                 return agent_profile(request)
             else:
-#                 HttpResponseRedirect('/store/unapproved-agent/')
                 return unapproved_agent_profile(request)
         
-        # view profile()    
-        HttpResponseRedirect('/store/profile/')
-#         return profile(request)
+
+        return profile(request)
         
         
     def is_owner(self):

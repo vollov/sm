@@ -7,7 +7,7 @@
 {% load staticfiles %}
 {% block content %}
 
-	<form class="form-signin" method="post" action="/account/login/">
+	<form class="form-signin" method="post" action="/account/profile/">
     	<h2 class="form-signin-heading">Please sign in</h2>
             {% csrf_token %}
             <label for="inputusername" class="sr-only">User Name</label>

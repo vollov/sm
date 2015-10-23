@@ -55,6 +55,46 @@ def register(request):
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 
+def login_form(request):
+    """
+    The request must be get
+    """
+
+    menu = MenuService.visitor_menu()
+        
+    requestContext = RequestContext(request, {'menu':menu,
+                                                  'page_title': 'Login'} )
+         
+    return render_to_response('login.html', requestContext)
+    
+
+def profile(request):
+    """
+    Controller to handle login http post
+    """
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        user = authenticate(username=username, password=password)
+        
+        if user:
+            if user.is_active:
+                logger.debug('user active, login() {0}, {1}'.format(request, user))
+                login(request, user)
+                profileViewHelper = ProfileViewHelper(user)
+                return profileViewHelper.direct_view(request)
+            else:
+                logger.error('User account disabled.')
+                raise Http404("User account disabled.")
+        else:
+            logger.error('Invalid login details: {0}, {1}'.format(username, password))
+            raise Http404('Invalid login details: {0}, {1}'.format(username, password))
+    else:
+        logger.error('Can not access profile via HTTP get.')
+        raise Http404('Can not access profile via HTTP get.')
+    
+    
 def sign_in(request):
     logger.debug('enter sign_in() {0}'.format(request))
     # If the request is a HTTP POST, try to pull out the relevant information.

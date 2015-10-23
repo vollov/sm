@@ -69,12 +69,7 @@ class TestLoginView(TestCase):
         
     def test_owner_login(self):
         
-#         self._client.post('/account/login/', {'username': 'kate', 'password': 'testpassword'})
-#         response = self.client.get('/store/owner/')
-
-#         self.assertRedirects(response, expected_url=reverse('account.views.sign_in'), status_code=302, target_status_code=200)
-        
-        response = self._client.post('/account/login/', {'username': 'kate', 'password': 'testpassword'})
+        response = self._client.post('/account/profile/', {'username': 'kate', 'password': 'testpassword'})
         expected_status_code = 200
         self.assertEqual(response.status_code, expected_status_code,'response status code should be 200')
         #print response.status_code
@@ -84,7 +79,7 @@ class TestLoginView(TestCase):
         self.assertEqual(response.context['page_title'], expected_page_title,'page title should be ' +  expected_page_title)
 
     def test_agent_login(self):        
-        response = self._client.post('/account/login/', {'username': 'skyler', 'password': 'testpassword'})
+        response = self._client.post('/account/profile/', {'username': 'skyler', 'password': 'testpassword'})
         expected_status_code = 200
         self.assertEqual(response.status_code, expected_status_code,'response status code should be 200')
         #print response.status_code
@@ -94,7 +89,7 @@ class TestLoginView(TestCase):
         self.assertEqual(response.context['page_title'], expected_page_title,'page title should be ' +  expected_page_title)
            
     def test_unapproved_agent_login(self):        
-        response = self._client.post('/account/login/', {'username': 'anna', 'password': 'testpassword'})
+        response = self._client.post('/account/profile/', {'username': 'anna', 'password': 'testpassword'})
         expected_status_code = 200
         self.assertEqual(response.status_code, expected_status_code,'response status code should be 200')
         #print response.status_code
@@ -104,7 +99,7 @@ class TestLoginView(TestCase):
         self.assertEqual(response.context['page_title'], expected_page_title,'page title should be ' +  expected_page_title)
              
     def test_user_login(self):        
-        response = self._client.post('/account/login/', {'username': 'martin', 'password': 'testpassword'})
+        response = self._client.post('/account/profile/', {'username': 'martin', 'password': 'testpassword'})
         expected_status_code = 200
         self.assertEqual(response.status_code, expected_status_code,'response status code should be 200')
         #print response.status_code

@@ -4,9 +4,9 @@ from account import views
 
 urlpatterns = patterns('',
 
-    # ex: /account/register/
     url(r'^register/$', views.register, name='register'),
-    url(r'^login/$', views.sign_in, name='sign_in'),
+    url(r'^login/$', views.login_form, name='login_form'),
+    url(r'^profile/$', views.profile, name='profile'),
     url(r'^logout/$', views.user_logout, name='logout'),
 #     url(r'^vehicle/(?P<oid>\S+)/$', views.vehicle, name='vehicle'),
 
