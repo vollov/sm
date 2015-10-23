@@ -89,6 +89,8 @@ def owner_profile(request):
     # compute the menu
     menu = MenuService.owner_menu(request.user, store)
     
+    request.session['current_menu'] = menu
+    
     logger.debug('calling store.views.owner_profile()')
     requestContext = RequestContext(request, {'menu':menu,
                                               'store':store,
@@ -104,7 +106,7 @@ def unapproved_agent_profile(request):
     store = Store.objects.get(id = store_id)
     
     menu = MenuService.unapproved_sales_menu(request.user, store)
-    
+    request.session['current_menu'] = menu
     logger.debug('calling store.views.unapproved_agent_profile()')
         
     requestContext = RequestContext(request, {'menu':menu,
@@ -134,7 +136,7 @@ def agent_profile(request):
     
     # compute the menu
     menu = MenuService.sales_menu(request.user, store)    
-    
+    request.session['current_menu'] = menu
     logger.debug('calling store.views.agent_profile()')
         
     requestContext = RequestContext(request, {'menu':menu,

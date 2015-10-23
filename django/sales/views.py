@@ -1,20 +1,41 @@
 from django.shortcuts import render
 
 from .forms import CustomerForm
+from .models import Customer
+
+@login_required
+def customers(request):
+    """
+    agent list customers
+    """
+    user = request.user
+    store = Store.objects.get(id = store_id)
+    menu = request.session['current_menu']
+    customers = Customer.objects.filter(agent_id=user.id, store_id=store.id)
+    
+    requestContext = RequestContext(request, {'menu':menu,
+                                              'customers': customers,
+                                              'user':user,
+                                              'store':store,
+                                              'page_title': 'Customers'} )
+         
+    return render_to_response('customers.html', requestContext)
+
+    
 
 @login_required
 def customer_form(request):
     """
     agent pull customer form
     """
+    user = request.user
+    store = Store.objects.get(id = store_id)
+    menu = request.session['current_menu']
     
-
-        # for 
-        menu = MenuService.visitor_menu()
-        profile_form = UserProfileForm()
+    customer_form = CustomerForm()
     requestContext = RequestContext(request, {'menu':menu,
                                               'page_title': 'Edit Profile',
-                                              'profile_form': profile_form} )
+                                              'customer_form': customer_form} )
     
 @login_required
 def save_customer(request):
