@@ -13,12 +13,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='store',
-            name='currency_rate',
-            field=models.DecimalField(default=5, max_digits=9, decimal_places=4),
-        ),
-        migrations.AddField(
-            model_name='store',
-            name='currency_type',
-            field=models.CharField(default=b'CAD', max_length=3, null=True),
+            name='tax_rate',
+            field=models.DecimalField(default=0.13, max_digits=9, decimal_places=4),
         ),
     ]

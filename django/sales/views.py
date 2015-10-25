@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from .forms import CustomerForm
-from .models import Customer
+from .models import Customer, Order, ProductOrder, Product
 from store.models import Store
 
 import logging
@@ -10,6 +10,29 @@ logger = logging.getLogger(__name__)
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
+
+
+@login_required
+def orders(request):
+    """
+    list orders for owner
+    """
+    user = request.user
+    store_id = request.session['current_store_id']
+    store = Store.objects.get(id = store_id)
+    menu = request.session['current_menu']
+    
+    orders = Order.objects.all()
+    
+    requestContext = RequestContext(request, {'menu':menu,
+                                              'orders': orders,
+                                              'user':user,
+                                              'store':store,
+                                              'page_title': 'orders'} )
+         
+    return render_to_response('orders.html', requestContext)
+    
+    
 
 @login_required
 def customers(request):

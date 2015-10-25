@@ -1,0 +1,12 @@
+product
+
+
+ProductOrder
+--product
+--customer
+--amount
+
+
+Order
+--product_order
+--status

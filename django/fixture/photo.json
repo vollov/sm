@@ -6,7 +6,7 @@
         "name": "General Tire Altimax Arctic",
         "created": "2015-10-17T23:49:54Z",
         "image": "bda31beb-97af-4493-b6b8-bffa31e40ad2/62c82c27-f52a-450c-a5c2-dd1984e2c581.jpg",
-        "title": "General Tire Altimax Arctic",
+        "weight": 1,
         "user": 1
     },
     "model": "photo.image",
@@ -19,7 +19,7 @@
         "name": "Mastercraft 20V Max Lithium-Ion Hammer Drill",
         "created": "2015-10-17T23:43:37Z",
         "image": "eebb4d2e-b796-46d8-bacf-078138f4aca7/c09e2706-efcb-40c8-b464-12432b6cfbc8.png",
-        "title": "Mastercraft 20V drill",
+        "weight": 1,
         "user": 1
     },
     "model": "photo.image",

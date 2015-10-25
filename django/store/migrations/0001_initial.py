@@ -18,6 +18,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.CharField(default=uuid.uuid4, max_length=64, serialize=False, verbose_name='Activation key', primary_key=True)),
                 ('name', models.CharField(max_length=60, unique=True, null=True)),
+                ('currency_rate', models.DecimalField(default=5, max_digits=9, decimal_places=4)),
+                ('currency_type', models.CharField(default=b'CAD', max_length=3, null=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('active', models.BooleanField(default=True)),
                 ('owner', models.ForeignKey(to=settings.AUTH_USER_MODEL)),

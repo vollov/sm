@@ -59,7 +59,7 @@ class Product(models.Model):
         super(Product, self).save(*args, **kwargs)
         
     def __unicode__(self):
-        return self.name
+        return str(self.name)
 
 class Customer(models.Model):
     
@@ -70,23 +70,16 @@ class Customer(models.Model):
     address = models.CharField(max_length=125, blank=True, null=True)
     phone = models.CharField(max_length=10, blank=True, null=True)
     
+    product_orders = models.ManyToManyField(Product, related_name='product_orders', through='ProductOrder')
+    
     # owner of the customer
     agent = models.ForeignKey(User, null=True)
     store = models.ForeignKey(Store, null=True)
+    created = models.DateTimeField(auto_now_add=True, blank=True)
+    active = models.BooleanField(default=True)
     
     def __unicode__(self):
-        return self.name
-
-class ProductOrder(models.Model):
-    id = models.CharField(max_length=64, primary_key=True, verbose_name=u"Activation key",
-                 default=uuid.uuid4)
-    product = models.ForeignKey('Product')
-    amount = models.IntegerField(default=0)
-    #related_name='sales',
-    customers = models.ManyToManyField(Customer,  through='Order')
-    store = models.ForeignKey(Store, null=True)
-    agent = models.ForeignKey(User, null=True)
-    created = models.DateTimeField(auto_now_add=True)
+        return str(self.name)
     
 class Order(models.Model):
     """
@@ -96,15 +89,15 @@ class Order(models.Model):
     """
     
     CLOSED = 'F'    #Closed
-    PROCESSING = 'P'         #Processing
-    WAIT_CONFIRM = 'W'         #Waiting Confirm
-    CANCEL = 'C'         #Cancel
+    SHIPPING = 'S'         #Shipping
+    CONFIRMED = 'Y'         #Confirmed
+    CANCEL = 'X'         #Cancel
     
     # TRANSMISSION: Automatic,MANUAL,other
     ORDER_STATUS_CHOICE = (
-        (CLOSED, 'Automatic'),
-        (PROCESSING, 'Manual'),
-        (WAIT_CONFIRM, 'Waiting Confirm'),
+        (CLOSED, 'Closed'),
+        (SHIPPING, 'Shipping'),
+        (CONFIRMED, 'Confirmed'),
         (CANCEL, 'Cancel'),
     )
     
@@ -112,12 +105,28 @@ class Order(models.Model):
                  default=uuid.uuid4)
     
     created = models.DateTimeField(auto_now_add=True)
-    customer = models.ForeignKey('Customer')
-    product_order = models.ForeignKey('ProductOrder')
+    
     store = models.ForeignKey(Store, null=True)
     agent = models.ForeignKey(User, null=True)
-    
+    delivery_cost = models.DecimalField(max_digits=9, decimal_places=4, default=0)
     status = models.CharField(max_length=2,
                                       choices=ORDER_STATUS_CHOICE,
-                                      default=WAIT_CONFIRM)
+                                      default=CONFIRMED)
     
+    def __unicode__(self):
+        return str(self.id)
+    
+class ProductOrder(models.Model):
+    id = models.CharField(max_length=64, primary_key=True, verbose_name=u"Activation key",
+                 default=uuid.uuid4)
+    product = models.ForeignKey(Product, null=True)
+    customer = models.ForeignKey(Customer, null=True)
+    order = models.ForeignKey(Order, null=True)
+    # additional
+    amount = models.IntegerField(default=0)
+    store = models.ForeignKey(Store, null=True)
+    agent = models.ForeignKey(User, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    
+    def __unicode__(self):
+        return str(self.id)

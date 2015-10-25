@@ -34,10 +34,7 @@ class MenuService:
         <div id="navbar" class="navbar-collapse collapse">
 
             <ul class="nav navbar-nav">
-                <li><a href="/sales/product/new/{1}">Add Product</a></li>
-                <li><a href="/sales/products/{1}">Products</a></li>
-                <li><a href="/sales/orders/{1}">customers</a></li>
-                <li><a href="/sales/orders/{1}">Orders</a></li>
+                <li><a href="/sales/orders">Orders</a></li>
             </ul>
             
             <ul class="nav navbar-nav navbar-right">

@@ -14,14 +14,15 @@ class Image(models.Model):
     id = models.CharField(max_length=64, primary_key=True, verbose_name=u"Activation key",
                  default=uuid.uuid4)
     name = models.CharField(max_length=60, blank=True, null=True)
-    
-    title = models.CharField(max_length=60, blank=True, null=True)
+    weight = models.IntegerField(default=0)
+#     title = models.CharField(max_length=60, blank=True, null=True)
     #image = models.FileField(upload_to="images/")
     image = models.ImageField(storage=OverwriteStorage(), upload_to=image_upload_path)
     created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, null=True, blank=True)
     
     product = models.ForeignKey(Product, null=True)
+    active = models.BooleanField(default=True)
     is_thumbnail = models.BooleanField(default=False)
         
     def image_thumb(self):

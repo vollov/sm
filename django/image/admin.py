@@ -29,3 +29,4 @@ class ImageAdmin(admin.ModelAdmin):
     list_display = ['image_key', 'album','name', 'image_thumb', 'created', 'active']
      
 admin.site.register(Image, ImageAdmin)
+admin.site.register(Album, AlbumAdmin)
