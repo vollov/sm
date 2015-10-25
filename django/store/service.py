@@ -63,10 +63,10 @@ class MenuService:
         <div id='navbar' class='navbar-collapse collapse'>
 
             <ul class='nav navbar-nav'>
-                <li><a href='/sales/customer/new/""" + store.id + """'>Add Customer</a></li>
-                <li><a href='/sales/customers/""" + store.id + """'>Customers</a></li>
-                <li><a href='/sales/order/add/""" + store.id + """'>Create order</a></li>
-                <li><a href='/sales/orders/""" + store.id + """'>Orders</a></li>
+                <li><a href='/sales/customer/new/'>Add Customer</a></li>
+                <li><a href='/sales/customers/'>Customers</a></li>
+                <li><a href='/sales/order/add/'>Create order</a></li>
+                <li><a href='/sales/orders/'>Orders</a></li>
             </ul>
             
             <ul class='nav navbar-nav navbar-right'>

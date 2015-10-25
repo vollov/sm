@@ -6,6 +6,7 @@ from store import views as store_views
 urlpatterns = [
     url(r'^$', store_views.profile, name='profile'),
     url(r'^store/', include('store.urls')),
+    url(r'^sales/', include('sales.urls')),
     url(r'^account/', include('account.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^captcha/', include('captcha.urls')),

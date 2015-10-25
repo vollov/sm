@@ -91,9 +91,11 @@ def profile(request):
             logger.error('Invalid login details: {0}, {1}'.format(username, password))
             raise Http404('Invalid login details: {0}, {1}'.format(username, password))
     else:
-        logger.error('Can not access profile via HTTP get.')
-        raise Http404('Can not access profile via HTTP get.')
-    
+        if request.user.is_active:
+            profileViewHelper = ProfileViewHelper(request.user)
+            return profileViewHelper.direct_view(request)
+        else:
+            raise Http404('Invalid user for profile')
     
 def sign_in(request):
     logger.debug('enter sign_in() {0}'.format(request))

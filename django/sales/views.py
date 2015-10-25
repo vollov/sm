@@ -2,6 +2,14 @@ from django.shortcuts import render
 
 from .forms import CustomerForm
 from .models import Customer
+from store.models import Store
+
+import logging
+logger = logging.getLogger(__name__)
+
+from django.contrib.auth.decorators import login_required
+from django.template import RequestContext
+from django.shortcuts import render_to_response, get_object_or_404
 
 @login_required
 def customers(request):
@@ -9,6 +17,7 @@ def customers(request):
     agent list customers
     """
     user = request.user
+    store_id = request.session['current_store_id']
     store = Store.objects.get(id = store_id)
     menu = request.session['current_menu']
     customers = Customer.objects.filter(agent_id=user.id, store_id=store.id)
@@ -29,6 +38,7 @@ def customer_form(request):
     agent pull customer form
     """
     user = request.user
+    store_id = request.session['current_store_id']
     store = Store.objects.get(id = store_id)
     menu = request.session['current_menu']
     
@@ -36,6 +46,8 @@ def customer_form(request):
     requestContext = RequestContext(request, {'menu':menu,
                                               'page_title': 'Edit Profile',
                                               'customer_form': customer_form} )
+    
+    return render_to_response('customer-form.html', requestContext)
     
 @login_required
 def save_customer(request):
@@ -55,11 +67,11 @@ def save_customer(request):
             customer.save()
             
             # redirect to customer list page 
-            return store.views.profile(request) 
+            return customers(request) 
         else:
-            print profile_form.errors
+            print customer_form.errors
 #             return HttpResponse("Edit profile is failed.")
-            raise Http404("Edit profile is failed.")
+            raise Http404("Edit customer is failed.")
     else:
         logger.error('Can not save customer via HTTP get.')
         raise Http404('Can not save customer via HTTP get.')
