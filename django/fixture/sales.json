@@ -30,5 +30,107 @@
     },
     "model": "sales.product",
     "pk": "eebb4d2e-b796-46d8-bacf-078138f4aca7"
+},
+{
+    "fields": {
+        "name": "DUSTIN ZHANG",
+        "created": "2015-10-25T17:26:56Z",
+        "agent": 5,
+        "phone": "5196163168",
+        "address": "284 Purple Sage Cr",
+        "active": true,
+        "sin": "113456789223",
+        "store": "0a860a0d-655f-4619-9670-14d2a9950a9a"
+    },
+    "model": "sales.customer",
+    "pk": "12e55ba3-db46-45e3-bbd0-ee53d0565f91"
+},
+{
+    "fields": {
+        "name": "Luke",
+        "created": "2015-10-25T17:27:19Z",
+        "agent": 6,
+        "phone": "5198846118",
+        "address": "King ST, chifeng, China 100042",
+        "active": true,
+        "sin": "123544656567",
+        "store": "0a860a0d-655f-4619-9670-14d2a9950a9a"
+    },
+    "model": "sales.customer",
+    "pk": "76f3f600-209d-4272-8831-8f9902513a66"
+},
+{
+    "fields": {
+        "status": "Y",
+        "delivery_cost": "3.0000",
+        "agent": 5,
+        "store": "0a860a0d-655f-4619-9670-14d2a9950a9a",
+        "created": "2015-10-25T17:36:52Z"
+    },
+    "model": "sales.order",
+    "pk": "19fb5912-0184-465b-82fe-a8a311bbb817"
+},
+{
+    "fields": {
+        "status": "Y",
+        "delivery_cost": "0.0000",
+        "agent": 4,
+        "store": "0a860a0d-655f-4619-9670-14d2a9950a9a",
+        "created": "2015-10-25T18:23:13Z"
+    },
+    "model": "sales.order",
+    "pk": "6ca6f44d-6c8c-4536-b4a0-88009810c1a4"
+},
+{
+    "fields": {
+        "customer": "12e55ba3-db46-45e3-bbd0-ee53d0565f91",
+        "product": "eebb4d2e-b796-46d8-bacf-078138f4aca7",
+        "created": "2015-10-25T18:23:13Z",
+        "agent": 4,
+        "amount": 1,
+        "order": "6ca6f44d-6c8c-4536-b4a0-88009810c1a4",
+        "store": "0a860a0d-655f-4619-9670-14d2a9950a9a"
+    },
+    "model": "sales.productorder",
+    "pk": "64920ca7-2a0a-4816-9671-b91c7deffd04"
+},
+{
+    "fields": {
+        "customer": "76f3f600-209d-4272-8831-8f9902513a66",
+        "product": "eebb4d2e-b796-46d8-bacf-078138f4aca7",
+        "created": "2015-10-25T17:37:23Z",
+        "agent": 5,
+        "amount": 1,
+        "order": "19fb5912-0184-465b-82fe-a8a311bbb817",
+        "store": "0a860a0d-655f-4619-9670-14d2a9950a9a"
+    },
+    "model": "sales.productorder",
+    "pk": "cfaabe0b-2839-4ba8-af60-f3d9b5993a11"
+},
+{
+    "fields": {
+        "customer": "12e55ba3-db46-45e3-bbd0-ee53d0565f91",
+        "product": "bda31beb-97af-4493-b6b8-bffa31e40ad2",
+        "created": "2015-10-25T17:37:23Z",
+        "agent": 5,
+        "amount": 2,
+        "order": "19fb5912-0184-465b-82fe-a8a311bbb817",
+        "store": "0a860a0d-655f-4619-9670-14d2a9950a9a"
+    },
+    "model": "sales.productorder",
+    "pk": "e81f28bf-f2de-43a2-bf58-75b664280064"
+},
+{
+    "fields": {
+        "customer": "76f3f600-209d-4272-8831-8f9902513a66",
+        "product": "bda31beb-97af-4493-b6b8-bffa31e40ad2",
+        "created": "2015-10-25T18:23:13Z",
+        "agent": 4,
+        "amount": 3,
+        "order": "6ca6f44d-6c8c-4536-b4a0-88009810c1a4",
+        "store": "0a860a0d-655f-4619-9670-14d2a9950a9a"
+    },
+    "model": "sales.productorder",
+    "pk": "eb017450-4e3c-4576-8d74-7b08baaa06b8"
 }
 ]

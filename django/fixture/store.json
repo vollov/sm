@@ -1,9 +1,11 @@
 [
 {
     "fields": {
+        "agent_share": "0.4000",
         "name": "Kate Store",
         "created": "2015-10-17T04:18:36Z",
         "currency_type": "CAD",
+        "tax_rate": "0.1300",
         "currency_rate": "5.0000",
         "owner": 3,
         "active": true

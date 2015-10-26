@@ -1,8 +1,8 @@
 
-mkdir -p /opt/www/sm/mdeia
-mkdir -p /opt/www/sm/static
-mkdir -p /opt/www/sm/logs
-chown -R dustin.dustin /opt/www/sm
-cp deploy/sm.conf /etc/init/
+mkdir -p /opt/www/jennyli/mdeia
+mkdir -p /opt/www/jennyli/static
+mkdir -p /opt/www/jennyli/logs
+chown -R dustin.dustin /opt/www/jennyli
+cp deploy/jennyli.conf /etc/init/
 
 cat deploy/lighttp.conf >> /etc/lightppd/lighttpd.conf
