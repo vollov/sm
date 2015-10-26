@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^customer/save/$', sales.views.save_customer, name='save_customer'),
     url(r'^customers/$', sales.views.customers, name='customers'),
     url(r'^orders/$', sales.views.orders, name='orders'),
+    url(r'^order/(?P<order_id>\S+)/$', sales.views.order_detail, name='order_detail'),
 #     url(r'^vehicle/(?P<oid>\S+)/$', views.vehicle, name='vehicle'),
     
 )

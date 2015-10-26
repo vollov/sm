@@ -39,7 +39,7 @@
           <td>{{item.amount}}</td>
           <td>{{item.product.sell_price}}</td>
           <td>{{item.product.purchase_price}} x {{ store.currency_rate }} x 1.13</td>
-          <td>{{item.product.sell_price - (item.product.purchase_price * store.currency_rate * 1.13)}}</td>
+          <td>{{item.profit}}</td>
         </tr>
 		{% endfor %}
       
