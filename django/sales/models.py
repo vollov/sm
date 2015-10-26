@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.db import models
 
 from decimal import *
@@ -28,7 +30,7 @@ class Product(models.Model):
     id = models.CharField(max_length=64, primary_key=True, verbose_name=u"Activation key",
                  default=uuid.uuid4)
     
-    name = models.CharField(max_length=60, blank=True, null=True)
+    name = models.CharField(max_length=250, blank=True, null=True)
     code = models.CharField(max_length=8, blank=True, null=True)
     
     #CAD
@@ -40,7 +42,7 @@ class Product(models.Model):
     #RMB
     market_price = models.DecimalField(max_digits=9, decimal_places=4)
     
-    desc = models.CharField(max_length=125, blank=True, null=True)
+    desc = models.TextField(blank=True, null=True)
     
     note = models.CharField(max_length=125, blank=True, null=True)
     
@@ -59,7 +61,7 @@ class Product(models.Model):
         super(Product, self).save(*args, **kwargs)
         
     def __unicode__(self):
-        return str(self.name)
+        return self.name
 
 class Customer(models.Model):
     
@@ -79,7 +81,7 @@ class Customer(models.Model):
     active = models.BooleanField(default=True)
     
     def __unicode__(self):
-        return str(self.name)
+        return self.name
     
 class Order(models.Model):
     """
