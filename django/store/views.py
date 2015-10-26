@@ -199,22 +199,28 @@ class ProfileViewHelper:
         if owned_store:
             # view owner_profile
             request.session['current_store_id'] = owned_store.id
-            
+             
             return owner_profile(request)
-        
+         
         if joined_store:
             # view sales_profile
-            
+             
             request.session['current_store_id'] = joined_store.id
-            
+             
             if self.is_approved_agent(joined_store.id):
                 return agent_profile(request)
             else:
                 return unapproved_agent_profile(request)
-        
-
+         
+ 
         return profile(request)
-        
+
+        # for version one, we allow owner login only
+#         groups = self._user.groups.values_list('name',flat=True)
+#         if 'Owner' in groups:
+#             owned_store = self.get_owned_stores()
+#             request.session['current_store_id'] = owned_store.id
+#             return owner_profile(request)
         
     def is_owner(self):
         """ check if the user own stores, return true if user own store"""
