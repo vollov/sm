@@ -65,7 +65,7 @@ WSGI_APPLICATION = 'esite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sm',
+        'NAME': 'jennyli',
         'USER': 'root',
         'PASSWORD': 'justdoit', 
         'HOST': '127.0.0.1', 
@@ -86,7 +86,7 @@ USE_L10N = True
 USE_TZ = True
 
 # define resource root
-RESOURCE_ROOT='/opt/www/sm/'
+RESOURCE_ROOT='/opt/www/jennyli/'
 #RESOURCE_ROOT='c:/opt/var/www/sm/'
 # Logging settings for development
 """
