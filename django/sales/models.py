@@ -123,10 +123,22 @@ class ProductOrder(models.Model):
     customer = models.ForeignKey(Customer, null=True)
     order = models.ForeignKey(Order, null=True)
     # additional
+    # keep a copy of history purchase/sales price
+    sell_price = models.DecimalField(max_digits=9, decimal_places=4,default=0)
+    purchase_price = models.DecimalField(max_digits=9, decimal_places=4,default=0)
     amount = models.IntegerField(default=0)
     store = models.ForeignKey(Store, null=True)
     agent = models.ForeignKey(User, null=True)
     created = models.DateTimeField(auto_now_add=True)
     
+    def save(self, *args, **kwargs):
+        """
+        auto update the sell_price and purchase_price.
+        """
+        self.sell_price = self.product.sell_price
+        self.purchase_price = self.product.purchase_price
+        
+        super(ProductOrder, self).save(*args, **kwargs)
+        
     def __unicode__(self):
         return str(self.id)
