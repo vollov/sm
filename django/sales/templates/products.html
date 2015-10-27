@@ -1,0 +1,14 @@
+{% extends 'site-layout.html' %}
+
+{% block title %} - {{ page_title }} {% endblock %}
+{% block menu %} {{ menu | safe }} {% endblock %}
+
+{% load staticfiles %}
+{% block content %}
+		<hr class="featurette-divider">
+
+<ul class="list-group">
+  <li class="list-group-item">Store : {{store.name}}</li>
+</ul>
+
+{% endblock %}

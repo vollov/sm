@@ -1,15 +1,15 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from store import views as store_views
+from .views import index as home
 
 urlpatterns = [
-    url(r'^$', store_views.profile, name='profile'),
+    url(r'^$', home, name='index'),
     url(r'^store/', include('store.urls')),
-    url(r'^sales/', include('sales.urls')),
-    url(r'^account/', include('account.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^captcha/', include('captcha.urls')),
+#     url(r'^sales/', include('sales.urls')),
+#     url(r'^account/', include('account.urls')),
+#     url(r'^admin/', include(admin.site.urls)),
+#     url(r'^captcha/', include('captcha.urls')),
 ]
 
 

@@ -36,12 +36,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'captcha',
-    'crispy_forms',
-    'account',
+#     'captcha',
+#     'crispy_forms',
+#     'account',
     'store',
-    'sales',
-    'photo',
+#     'sales',
+#     'photo',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -86,8 +86,8 @@ USE_L10N = True
 USE_TZ = True
 
 # define resource root
-RESOURCE_ROOT='/opt/www/jennyli/'
-#RESOURCE_ROOT='c:/opt/var/www/sm/'
+#RESOURCE_ROOT='/opt/www/jennyli/'
+RESOURCE_ROOT='c:/opt/var/www/jennyli/'
 # Logging settings for development
 """
 DEBUG: Low level system information for debugging purposes

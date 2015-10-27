@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from models import Store, StoreEnrollment
+from models import Store
 
 class StoreAdmin(admin.ModelAdmin):
     
@@ -16,10 +16,10 @@ class StoreAdmin(admin.ModelAdmin):
     activate.short_description = "Activate Stores"
 
     actions = [activate]
-    list_display = ['id','name', 'created', 'active']   
+    list_display = ['id','name','code','currency_rate','tax_rate','agent_share','created', 'active']   
 
-class StoreEnrollmentAdmin(admin.ModelAdmin):
-    list_display = ['id','created', 'active']   
+# class StoreEnrollmentAdmin(admin.ModelAdmin):
+#     list_display = ['id','created', 'active']   
 
 admin.site.register(Store, StoreAdmin)
-admin.site.register(StoreEnrollment, StoreEnrollmentAdmin)
+# admin.site.register(StoreEnrollment, StoreEnrollmentAdmin)
