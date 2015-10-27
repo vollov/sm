@@ -3,6 +3,6 @@ cloud sales manager - single store applications
 
 - agents share customers and orders
 
-<ul class="list-group">
+branches
+basic_store - version with one module, share one store
 
-</ul>
