@@ -1,4 +1,27 @@
+import logging
+logger = logging.getLogger(__name__)
 
+from django.template import RequestContext
+from django.shortcuts import render_to_response, get_object_or_404
+
+
+from .models import Store
+
+def products(request, store_id):
+    """
+    Show products to public
+    """
+    logger.debug('index.html - calling esite.views.index()')
+    store = Store.objects.get(code = '10001')
+    store = get_object_or_404(Store, pk=store_id)
+    
+    requestContext = RequestContext(request, {
+        'menu':menu,
+        'page_title': 'Home',
+        'store': store
+    })
+        
+    return render(request, 'products.html', requestContext)
 
 # import logging
 # from django.shortcuts import render_to_response
