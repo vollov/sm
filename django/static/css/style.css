@@ -45,3 +45,23 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.list-header {
+	height: 40px;
+}
+
+.grid-item {
+	height: 280px;
+}
+
+.grid-item img{
+	height: 150px;
+}
+
+.boder-left-splitter {
+	border-left: 1px solid #EEE;
+}
+
+.item-description {
+	margin: 20px 10px 10px 10px;
+}

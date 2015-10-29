@@ -40,8 +40,7 @@ INSTALLED_APPS = (
 #     'crispy_forms',
 #     'account',
     'store',
-#     'sales',
-#     'photo',
+    'photo',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,6 +51,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # add for translation
+    'django.middleware.locale.LocaleMiddleware',
 )
 
 ROOT_URLCONF = 'esite.urls'
@@ -173,4 +174,22 @@ LOGIN_URL='/account/login/'
 FIXTURE_PATH = os.path.join(BASE_DIR,'fixture')
 FIXTURE_DIRS = (
     FIXTURE_PATH,
+)
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
+# store app settings
+STORE_CODE = '10001'
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.template.context_processors.debug',
+    'django.template.context_processors.i18n',
+    'django.template.context_processors.media',
+    'django.template.context_processors.static',
+    'django.template.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
+    'store.context_processors.ecomstore',
 )

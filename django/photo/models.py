@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from sales.models import Product
+from store.models import Product
 from storage import OverwriteStorage
 import uuid,os
 
@@ -18,13 +18,17 @@ class Image(models.Model):
 #     title = models.CharField(max_length=60, blank=True, null=True)
     #image = models.FileField(upload_to="images/")
     image = models.ImageField(storage=OverwriteStorage(), upload_to=image_upload_path)
-    created = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, null=True, blank=True)
     
     product = models.ForeignKey(Product, null=True)
     active = models.BooleanField(default=True)
     is_thumbnail = models.BooleanField(default=False)
-        
+     
+    class Meta:
+        db_table = 'images'
+           
     def image_thumb(self):
         return '<img src="/media/%s" width="100" height="100" />' % (self.image)
      

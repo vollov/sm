@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('store', '0001_initial'),
+        ('store', '0002_order_ship_to'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='store',
-            name='tax_rate',
-            field=models.DecimalField(default=0.13, max_digits=9, decimal_places=4),
+            model_name='shippingaddress',
+            name='sin',
+            field=models.CharField(max_length=24, null=True, blank=True),
         ),
     ]

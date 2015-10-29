@@ -11,8 +11,8 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sales', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('store', '0003_shippingaddress_sin'),
     ]
 
     operations = [
@@ -23,10 +23,11 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=60, null=True, blank=True)),
                 ('weight', models.IntegerField(default=0)),
                 ('image', models.ImageField(storage=photo.storage.OverwriteStorage(), upload_to=photo.models.image_upload_path)),
-                ('created', models.DateTimeField(auto_now_add=True)),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
                 ('active', models.BooleanField(default=True)),
                 ('is_thumbnail', models.BooleanField(default=False)),
-                ('product', models.ForeignKey(to='sales.Product', null=True)),
+                ('product', models.ForeignKey(to='store.Product', null=True)),
                 ('user', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True)),
             ],
         ),

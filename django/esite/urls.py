@@ -4,6 +4,7 @@ from django.contrib import admin
 from .views import index as home
 
 urlpatterns = [
+    url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^$', home, name='index'),
     url(r'^store/', include('store.urls')),
 #     url(r'^sales/', include('sales.urls')),

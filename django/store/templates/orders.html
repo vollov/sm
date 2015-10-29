@@ -1,0 +1,52 @@
+{% extends 'site-layout.html' %}
+
+{% block title %} - {{ page_title }} {% endblock %}
+{% block menu %} {{ menu | safe }} {% endblock %}
+
+{% load staticfiles %}
+{% block content %}
+		<hr class="featurette-divider">
+
+<ul class="list-group">
+  <li class="list-group-item">Owner : {{user.username}}</li>
+  <li class="list-group-item">Store : {{store.name}}</li>
+</ul>
+
+{% if orders %}
+
+<h3>Orders</h3>
+
+<div class="orders">
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Agent Name</th>
+          <th>Agent Payment</th>
+          <th>delivery</th>
+          <th>Status</th>
+          <th>Order Date</th>
+        </tr>
+      </thead>
+      <tbody>
+      
+      	{% for order in orders %}
+      		<tr>
+          <th scope="row"><a href="{% url 'order_detail' order.id %}">{{ order.id }}</a></th>
+          <td>{{order.agent}}</td>
+          <td>0</td>
+          <td>{{order.delivery_cost}}</td>
+          <td>{{order.status}}</td>
+          <td>{{order.created}}</td>
+        	</tr>
+		{% endfor %}
+      
+      </tbody>
+    </table>
+  </div>
+  
+{% else %}
+    <p>There are no orders in store.</p>
+{% endif %}	
+
+{% endblock %}

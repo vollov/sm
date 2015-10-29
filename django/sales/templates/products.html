@@ -5,10 +5,41 @@
 
 {% load staticfiles %}
 {% block content %}
-		<hr class="featurette-divider">
+		
 
 <ul class="list-group">
-  <li class="list-group-item">Store : {{store.name}}</li>
+  
+  
+  
+  
+  <li class="list-group-item">
+  	<div class="grid-item row">
+  		{% for product in products %}
+  		<div class="col-xs-3 boder-left-splitter">
+  			<img class="img-responsive center-block img-thumbnail" alt="ISDA Logo" src="/media/{{ product.thumbnail }}">
+  			<div class="item-description">
+  			<p><strong>{{product.name}}</strong></p>
+  			<p>RMB: {{product.sell_price}}</p>
+  			<p><small>{% trans "product.origin" %} :  USA</small></p>
+  			</div>
+  			
+  		</div>
+  		
+  	
+  	{% if forloop.counter|divisibleby:4 %}
+  	</div>
+  	</li>
+  	
+  	<li class="list-group-item">
+  	<div class="grid-item row">
+  	{% endif %}
+  	
+  	{% endfor %}
+  	</div>
+  </li>
+  
 </ul>
+
+
 
 {% endblock %}
