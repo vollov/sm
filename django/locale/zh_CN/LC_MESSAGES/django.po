@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-29 13:34-0400\n"
+"POT-Creation-Date: 2015-10-29 19:03-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,9 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: .\sales\templates\products.html:23 .\store\templates\products.html:17
+#: .\sales\templates\products.html:23
 msgid "product.origin"
 msgstr "產地"
+
+#: .\store\templates\product-detail.html:34 .\store\templates\products.html:18
+#, fuzzy
+#| msgid "product.origin"
+msgid "product.price"
+msgstr "價格"
 
 #: .\templates\index.html:10
 msgid "home.store"

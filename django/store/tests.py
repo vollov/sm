@@ -24,27 +24,52 @@ class TestProductOrderModel(TestCase):
     fixtures = ['auth.json', 'store.json']
     
     def setUp(self):
-        self.product_order = ProductOrder.objects.get(id='')
+        self.product_order = ProductOrder.objects.get(id='7540a9e1-1b1a-44c7-8dee-e02056916aa1')
         
          
     def test_sell_total(self):
-        expected_sell_total = 0
-        
+        expected_sell_total = 300.00
+        self.assertEqual(self.product_order.sell_total, expected_sell_total, 'sell total should be '+ str(expected_sell_total))
+           
     def test_purchase_total(self):
-        expected_purchase_total = 0
+        expected_purchase_total = 248.60
+        print 'self.product_order.purchase_total={0}'.format(str(self.product_order.purchase_total))
         
+        self.assertEqual(self.product_order.purchase_total, expected_purchase_total, 'purchase total should be '+ str(expected_purchase_total))
+        
+         
     def test_profit_total(self):
-        expected_number = 2
-        self.assertEqual(len(products), expected_number, 'number of products should be '+ str(expected_number))
+        expected_profit_total = 51.40
+        print 'self.product_order.profit_total={0}'.format(str(self.product_order.profit_total))
+        self.assertEqual(self.product_order.profit_total, expected_profit_total, 'profit total should be '+ str(expected_profit_total))
         
+         
     def test_unit_profit(self):
+        expected_unit_profit = 25.70
+        self.assertEqual(self.product_order.unit_profit, expected_unit_profit, 'unit profit should be '+ str(expected_unit_profit))
         
     def test_unit_cost(self):
+        """self.product.purchase_price * self.order.currency_rate * (1 + self.order.tax_rate)"""
         
+        expected_unit_cost = 124.30
+        #" {0:.2f}
+        print 'self.product_order.unit_cost={0}'.format(str(self.product_order.unit_cost))
+        self.assertEqual(self.product_order.unit_cost, expected_unit_cost, 'product unit cost should be '+ str(expected_unit_cost))
+    
     def test_sku(self):
+        expected_sku = '10001'
+        self.assertEqual(self.product_order.sku, expected_sku, 'product sku should be '+ expected_sku)
         
         
-        
+class TestOrderModel(TestCase):
+    """test product order model"""
+    
+    fixtures = ['auth.json', 'store.json']
+    
+    def setUp(self):
+        self.order = Order.objects.get(id='78c5b842-7540-4d82-8d87-da4f8ec6af58')
+      
+      
 # class StoreTestCase(TestCase):
 #     fixtures = ['user.json', 'store.json']
 #     

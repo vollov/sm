@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
-import uuid, os
+import uuid, os, decimal
 
 class Agent(models.Model):
     user = models.OneToOneField(User)
@@ -165,6 +165,7 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     agent = models.ForeignKey(User, null=True)
+    store = models.ForeignKey(Store, null=True)
     
     delivery_company = models.CharField(max_length=255, blank=True, null=True)
     tarcking_code = models.CharField(max_length=255, blank=True, null=True)
@@ -176,10 +177,25 @@ class Order(models.Model):
                                       default=CONFIRMED)
     
     # kept history data here
-    currency_rate = models.DecimalField(max_digits=9, decimal_places=2, default=5.50, blank=False, null=False)
-    tax_rate = models.DecimalField(max_digits=9, decimal_places=2, default=0.13, blank=False, null=False)
-    agent_share = models.DecimalField(max_digits=9, decimal_places=2, default=0.4, blank=False, null=False)
+    currency_rate = models.DecimalField(max_digits=9, decimal_places=2, null=True)
+    tax_rate = models.DecimalField(max_digits=9, decimal_places=2,null=True)
+    agent_share = models.DecimalField(max_digits=9, decimal_places=2, null=True)
     
+    def save(self, *args, **kwargs):
+        """
+        auto update 'currency_rate','tax_rate','agent_share',.
+        """
+        if not self.currency_rate:
+            self.currency_rate = self.store.currency_rate
+            
+        if not self.tax_rate:
+            self.tax_rate = self.store.tax_rate
+            
+        if not self.agent_share:
+            self.agent_share = self.store.agent_share
+         
+        super(Order, self).save(*args, **kwargs)
+        
     def __unicode__(self):
         return str(self.id)
      
@@ -231,8 +247,8 @@ class ProductOrder(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
      
     # keep a copy of history purchase/sales price
-    sell_price = models.DecimalField(max_digits=9, decimal_places=4,default=0)
-    purchase_price = models.DecimalField(max_digits=9, decimal_places=4,default=0)
+    sell_price = models.DecimalField(max_digits=9, decimal_places=2,default=None)
+    purchase_price = models.DecimalField(max_digits=9, decimal_places=2,default=None)
     
     class Meta:
         db_table = 'product_orders'
@@ -240,23 +256,23 @@ class ProductOrder(models.Model):
      
     @property
     def sell_total(self):
-        return self.quantity * self.product.sell_price
+        return round(self.quantity * self.product.sell_price, 2)
     
     @property
     def purchase_total(self):
-        return self.quantity * self.unit_cost
+        return round(self.quantity * self.unit_cost, 2)
     
     @property
     def profit_total(self):
-        return self.quantity * self.unit_profit
+        return round(self.quantity * self.unit_profit, 2)
     
     @property
     def unit_profit(self):
-        return self.unit_cost - self.product.sell_price
+        return round(self.product.sell_price - decimal.Decimal(self.unit_cost), 2)
     
     @property
     def unit_cost(self):
-        return self.product.purchase_price * self.order.currency_rate * (1 + self.order.tax_rate)
+        return round(self.product.purchase_price * self.order.currency_rate * (1 + self.order.tax_rate), 2)
     
     @property
     def name(self):
@@ -270,12 +286,13 @@ class ProductOrder(models.Model):
         """
         auto update the sell_price and purchase_price.
         """
-        self.sell_price = self.product.sell_price
-        self.purchase_price = self.product.purchase_price
+        if not self.sell_price:
+            self.sell_price = self.product.sell_price
+            
+        if not self.purchase_price:
+            self.purchase_price = self.product.purchase_price
          
         super(ProductOrder, self).save(*args, **kwargs)
-    
-    
     
     def __unicode__(self):
         return str(self.id)

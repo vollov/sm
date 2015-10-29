@@ -49,7 +49,7 @@ class ProductAdmin(admin.ModelAdmin):
 admin.site.register(Product, ProductAdmin)
 
 class ProductOrderAdmin(admin.ModelAdmin):      
-    list_display = ['product','quantity', 'order','created_at']
+    list_display = ['product','quantity', 'order','purchase_price','sell_price','created_at']
     list_per_page = 50
     ordering = ['-created_at']
     search_fields = ['name', 'order','created_at']
@@ -68,7 +68,7 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [ProductOrderInline]
     ordering = ['-created_at']
     search_fields = ['name', 'agent','ship_to','delivery_company','created_at']
-    list_display = ['id', 'agent', 'ship_to','delivery_cost','delivery_company','created_at']    
+    list_display = ['id', 'agent', 'ship_to','delivery_cost','delivery_company','currency_rate','tax_rate','agent_share','created_at']    
     list_filter = ['agent','ship_to','delivery_company','created_at']
     exclude = ('currency_rate','tax_rate','agent_share',)
     
