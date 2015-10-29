@@ -49,13 +49,13 @@ class ProductAdmin(admin.ModelAdmin):
 admin.site.register(Product, ProductAdmin)
 
 class ProductOrderAdmin(admin.ModelAdmin):      
-    list_display = ['product','quantity', 'agent', 'order','created_at']
+    list_display = ['product','quantity', 'order','created_at']
     list_per_page = 50
     ordering = ['-created_at']
-    search_fields = ['name', 'agent','order','created_at']
-    exclude = ('created_at', 'updated_at','agent','purchase_price','sell_price',)
+    search_fields = ['name', 'order','created_at']
+    exclude = ('created_at', 'updated_at','purchase_price','sell_price',)
     
-    list_filter = ['agent','order','created_at']
+    list_filter = ['order','created_at']
     
 admin.site.register(ProductOrder,ProductOrderAdmin)
     

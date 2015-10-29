@@ -15,68 +15,8 @@
 # from django.shortcuts import render_to_response, get_object_or_404
 # 
 # 
-# @login_required
-# def orders(request):
-#     """
-#     list orders for owner
-#     """
-#     user = request.user
-#     store_id = request.session['current_store_id']
-#     store = Store.objects.get(id = store_id)
-#     menu = request.session['current_menu']
-#     
-#     orders = Order.objects.all()
-#     
-#     requestContext = RequestContext(request, {'menu':menu,
-#                                               'orders': orders,
-#                                               'user':user,
-#                                               'store':store,
-#                                               'page_title': 'orders'} )
-#          
-#     return render_to_response('orders.html', requestContext)
-#     
-# @login_required
-# def order_detail(request, order_id):
-#     
-#     order = get_object_or_404(Order, pk=order_id)
-#     user = request.user
-#     
-#     store_id = request.session['current_store_id']
-#     store = Store.objects.get(id = store_id)
-#     menu = request.session['current_menu']
-#     
-#     product_orders = ProductOrder.objects.filter(order_id=order_id)
-#     
-#     gross_profit = 0
-#     purchase_total = 0
-#     for item in product_orders:
-#         purchase_cost = item.product.purchase_price * store.currency_rate * (1+store.tax_rate)
-#         purchase_total += (purchase_cost * item.amount)
-#         item_unit_profit = item.product.sell_price - purchase_cost
-#         item_profit = item_unit_profit * item.amount
-#         item.profit = item_profit
-#         gross_profit += item_profit
-#         
-#     net_profit = gross_profit - order.delivery_cost
-#     agent_profit = net_profit * store.agent_share
-#     owner_profit = net_profit - agent_profit
-#     # agent_payment = purchase_cost + delivery_cost + owner_profit
-#     agent_payment = purchase_total + order.delivery_cost + owner_profit
-#     requestContext = RequestContext(request, {'menu':menu,
-#                                           'product_orders': product_orders,
-#                                           'order':order,
-#                                           'user':user,
-#                                           'store':store,
-#                                           'gross_profit':gross_profit,
-#                                           'net_profit':net_profit,
-#                                           'agent_profit':agent_profit,
-#                                           'owner_profit':owner_profit,
-#                                           'agent_payment':agent_payment,
-#                                           'page_title': 'order detail'} )
-#         
-#     
-#     return render(request, 'order-detail.html', requestContext)
-# 
+
+
 # @login_required
 # def customers(request):
 #     """

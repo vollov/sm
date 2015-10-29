@@ -38,6 +38,22 @@
 },
 {
     "fields": {
+        "sku": "m450-1001",
+        "note": "",
+        "name": "\u5bf6\u99acM450",
+        "created_at": "2015-10-29T17:44:14Z",
+        "updated_at": "2015-10-29T17:44:14Z",
+        "sell_price": "50000.00",
+        "market_price": "80000.00",
+        "active": true,
+        "purchase_price": "4000.00",
+        "desc": "\u5bf6\u99acM450"
+    },
+    "model": "store.product",
+    "pk": "31320069-c8d1-47e8-84df-a314f147fde3"
+},
+{
+    "fields": {
         "sku": "10002",
         "note": "Walmart",
         "name": "\u6210\u4eba\u9c7c\u6cb9",
@@ -67,5 +83,79 @@
     },
     "model": "store.product",
     "pk": "e20ebcfe-ca86-4723-bac3-4d68f3cbd325"
+},
+{
+    "fields": {
+        "name": "\u56db\u559c",
+        "created_at": "2015-10-29T12:40:11Z",
+        "updated_at": "2015-10-29T12:40:11Z",
+        "agent": 2,
+        "phone": "11223344",
+        "address": "\u4e2d\u56fd\u5185\u8499\u53e4\u8d64\u5cf0\u5e02\u7ea2\u5c71\u533a\u54c8\u5927\u8857",
+        "active": true,
+        "sin": "112233445566"
+    },
+    "model": "store.customer",
+    "pk": "d4c06209-112b-411e-99d1-cfc6a2918560"
+},
+{
+    "fields": {
+        "name": "\u738b\u6dfc\uff08\u8001\u516d\u5ab3\u5987\uff09",
+        "created_at": "2015-10-29T12:40:47Z",
+        "updated_at": "2015-10-29T12:40:47Z",
+        "agent": 2,
+        "phone": "519-616-3113",
+        "address": "\u4e2d\u56fd\u5185\u8499\u53e4\u8d64\u5cf0\u5e02\u7ea2\u5c71\u533a\u54c8\u5927\u8857\u6d77\u8fbe\u4e09\u697c\u8001\u677f\u4e13\u5356 ",
+        "active": true,
+        "sin": "112233445567"
+    },
+    "model": "store.customer",
+    "pk": "e7cc7e5b-da17-4a4d-96e5-b9b8fb6d88bb"
+},
+{
+    "fields": {
+        "name": "nths",
+        "created_at": "2015-10-29T19:38:42Z",
+        "updated_at": "2015-10-29T19:38:42Z",
+        "agent": 2,
+        "phone": "519-616-3113",
+        "postcode": "100083",
+        "address": "\u4e2d\u56fd\u5185\u8499\u53e4\u8d64\u5cf0\u5e02\u7ea2\u5c71\u533a\u54c8\u5927\u8857",
+        "active": true,
+        "sin": "112233445566"
+    },
+    "model": "store.shippingaddress",
+    "pk": "e6be6ba4-7c63-4c01-b7bf-6ca4f1e19ef5"
+},
+{
+    "fields": {
+        "status": "Y",
+        "agent_share": "0.40",
+        "tax_rate": "0.13",
+        "tarcking_code": "yyy",
+        "created_at": "2015-10-29T19:39:10Z",
+        "updated_at": "2015-10-29T19:39:10Z",
+        "agent": 2,
+        "delivery_company": "xxx",
+        "delivery_cost": "55.000",
+        "currency_rate": "5.50",
+        "ship_to": "e6be6ba4-7c63-4c01-b7bf-6ca4f1e19ef5"
+    },
+    "model": "store.order",
+    "pk": "78c5b842-7540-4d82-8d87-da4f8ec6af58"
+},
+{
+    "fields": {
+        "customer": "d4c06209-112b-411e-99d1-cfc6a2918560",
+        "product": "e20ebcfe-ca86-4723-bac3-4d68f3cbd325",
+        "created_at": "2015-10-29T19:39:10Z",
+        "updated_at": "2015-10-29T19:39:10Z",
+        "purchase_price": "20.0000",
+        "sell_price": "150.0000",
+        "order": "78c5b842-7540-4d82-8d87-da4f8ec6af58",
+        "quantity": 2
+    },
+    "model": "store.productorder",
+    "pk": "7540a9e1-1b1a-44c7-8dee-e02056916aa1"
 }
 ]

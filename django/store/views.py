@@ -3,25 +3,119 @@ logger = logging.getLogger(__name__)
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
+from models import Product
 
-from .models import Store
-
-def products(request, store_id):
+def products(request):
     """
     Show products to public
     """
-    logger.debug('index.html - calling esite.views.index()')
-    store = Store.objects.get(code = '10001')
-    store = get_object_or_404(Store, pk=store_id)
+    logger.debug('products.html - calling store.views.products()')
     
+    products = Product.objects.filter(active=True)
+    
+    for product in products:
+        thumbnails = product.image_set.filter(is_thumbnail=True)
+        if thumbnails:
+            product.thumbnail = thumbnails[0]
+        else:
+            product.thumbnail = 'na.jpg'
+                   
     requestContext = RequestContext(request, {
-        'menu':menu,
-        'page_title': 'Home',
-        'store': store
+        'page_title': 'Products',
+        'products': products,
     })
         
-    return render(request, 'products.html', requestContext)
+    return render_to_response('products.html', requestContext)
+
+def product_detail(request, sku):
+    """
+    Show product detail by sku to public
+    """
+    logger.debug('product-detail.html - calling store.views.product_detail()')
+    
+    product = get_object_or_404(Product, sku=sku)
+    thumbnails = product.image_set.filter(is_thumbnail=True)
+    if thumbnails:
+        product.thumbnail = thumbnails[0]
+    else:
+        product.thumbnail = 'na.jpg'
+        
+    images = product.image_set.filter(active=True)
+    
+    requestContext = RequestContext(request, {
+        'page_title': 'Product detail',
+        'product':product,
+        'images': images,
+    })
+    
+    return render_to_response('product-detail.html', requestContext)
+    
+    
+# @login_required
+# def orders(request):
+#     """
+#     list orders for owner
+#     """
+#     user = request.user
+#     store_id = request.session['current_store_id']
+#     store = Store.objects.get(id = store_id)
+#     menu = request.session['current_menu']
+#     
+#     orders = Order.objects.all()
+#     
+#     requestContext = RequestContext(request, {'menu':menu,
+#                                               'orders': orders,
+#                                               'user':user,
+#                                               'store':store,
+#                                               'page_title': 'orders'} )
+#          
+#     return render_to_response('orders.html', requestContext)
+
+#     
+# @login_required
+# def order_detail(request, order_id):
+#     
+#     order = get_object_or_404(Order, pk=order_id)
+#     user = request.user
+#     
+#     store_id = request.session['current_store_id']
+#     store = Store.objects.get(id = store_id)
+#     menu = request.session['current_menu']
+#     
+#     product_orders = ProductOrder.objects.filter(order_id=order_id)
+#     
+#     gross_profit = 0
+#     purchase_total = 0
+#     for item in product_orders:
+#         purchase_cost = item.product.purchase_price * store.currency_rate * (1+store.tax_rate)
+#         purchase_total += (purchase_cost * item.amount)
+#         item_unit_profit = item.product.sell_price - purchase_cost
+#         item_profit = item_unit_profit * item.amount
+#         item.profit = item_profit
+#         gross_profit += item_profit
+#         
+#     net_profit = gross_profit - order.delivery_cost
+#     agent_profit = net_profit * store.agent_share
+#     owner_profit = net_profit - agent_profit
+#     # agent_payment = purchase_cost + delivery_cost + owner_profit
+#     agent_payment = purchase_total + order.delivery_cost + owner_profit
+#     requestContext = RequestContext(request, {'menu':menu,
+#                                           'product_orders': product_orders,
+#                                           'order':order,
+#                                           'user':user,
+#                                           'store':store,
+#                                           'gross_profit':gross_profit,
+#                                           'net_profit':net_profit,
+#                                           'agent_profit':agent_profit,
+#                                           'owner_profit':owner_profit,
+#                                           'agent_payment':agent_payment,
+#                                           'page_title': 'order detail'} )
+#         
+#     
+#     return render(request, 'order-detail.html', requestContext)
+# 
 
 # import logging
 # from django.shortcuts import render_to_response

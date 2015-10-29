@@ -1,6 +1,6 @@
-python manage.py dumpdata auth.User --indent 4 > user.json
 
-python manage.py loaddata user.json
+python manage.py dumpdata auth --indent 4 > auth.json
+python manage.py loaddata auth.json
 
 
 

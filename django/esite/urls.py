@@ -1,11 +1,11 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from .views import index as home
+from store.views import products
 
 urlpatterns = [
     url(r'^i18n/', include('django.conf.urls.i18n')),
-    url(r'^$', home, name='index'),
+    url(r'^$', products, name='products'),
     url(r'^store/', include('store.urls')),
 #     url(r'^sales/', include('sales.urls')),
 #     url(r'^account/', include('account.urls')),
