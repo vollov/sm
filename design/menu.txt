@@ -17,3 +17,5 @@
 	        	</li>
         	</ul>
 		</div><!--/.navbar-collapse -->
+		
+		<button onclick='window.location.href='/store/logout/' type='button' class='btn btn-default navbar-btn'>{% trans "site.logout" %}</button>

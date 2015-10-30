@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-30 02:28+0000\n"
+"POT-Creation-Date: 2015-10-30 14:55-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,39 +18,98 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: sales/templates/products.html:23
-msgid "product.origin"
-msgstr "产地"
+#: .\store\templates\order-detail.html:10 .\store\templates\orders.html:17
+msgid "order.agent.name"
+msgstr "代理人"
 
-#: store/templates/orders.html:10
+#: .\store\templates\order-detail.html:17
+msgid "product_order.customer.name"
+msgstr "客户姓名"
+
+#: .\store\templates\order-detail.html:18
+msgid "product_order.product.name"
+msgstr "商品名称"
+
+#: .\store\templates\order-detail.html:19
+msgid "product_order.quantity"
+msgstr "数量"
+
+#: .\store\templates\order-detail.html:20
+msgid "product_order.unit_price"
+msgstr "单价"
+
+#: .\store\templates\order-detail.html:21
+msgid "product_order.cost_total"
+msgstr "进货总价"
+
+#: .\store\templates\order-detail.html:22
+msgid "product_order.gross_profit"
+msgstr "项目毛利"
+
+#: .\store\templates\order-detail.html:43
+msgid "order.gross_profit"
+msgstr "订单总毛利"
+
+#: .\store\templates\order-detail.html:44 .\store\templates\orders.html:19
+msgid "order.delivery_cost"
+msgstr "运价"
+
+#: .\store\templates\order-detail.html:45
 #, fuzzy
-#| msgid "orders"
+#| msgid "order.agent_payment"
+msgid "order.net_profit"
+msgstr "代理应付款"
+
+#: .\store\templates\order-detail.html:46
+msgid "order.agent_profit"
+msgstr "代理纯利润"
+
+#: .\store\templates\order-detail.html:47
+msgid "order.owner_profit"
+msgstr "店家纯利润"
+
+#: .\store\templates\order-detail.html:48 .\store\templates\orders.html:18
+msgid "order.agent_payment"
+msgstr "代理应付款"
+
+#: .\store\templates\orders.html:10 .\store\views.py:74
 msgid "menu.orders"
 msgstr "订单"
 
-#: store/templates/product-detail.html:34 store/templates/products.html:19
-#, fuzzy
-#| msgid "product.origin"
+#: .\store\templates\orders.html:16
+msgid "order.id"
+msgstr "订单编号"
+
+#: .\store\templates\orders.html:20
+msgid "order.status"
+msgstr "发货状态"
+
+#: .\store\templates\orders.html:21
+msgid "order.date"
+msgstr "订单时间"
+
+#: .\store\templates\product-detail.html:34 .\store\templates\products.html:19
 msgid "product.price"
 msgstr "价格"
 
-#: store/templates/products.html:8
-#, fuzzy
-#| msgid "product.origin"
+#: .\store\templates\products.html:8
 msgid "menu.products"
 msgstr "产品"
 
-#: templates/index.html:10
+#: .\templates\index.html:10
 msgid "home.store"
 msgstr "商店"
 
-#: templates/site-layout.html:50
+#: .\templates\site-layout.html:50
 msgid "site.user"
 msgstr "用户"
 
-#: templates/site-layout.html:53
+#: .\templates\site-layout.html:53
 msgid "site.logout"
 msgstr "退出"
+
+#~ msgid "product.origin"
+#~ msgstr "产地"
 
 #, fuzzy
 #~| msgid "Chinese"

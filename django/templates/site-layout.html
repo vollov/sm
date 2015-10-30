@@ -50,7 +50,7 @@
                     <p class='navbar-text '>{% trans "site.user" %} : {{request.user.username}}</p>
                 </li>
                 <li>
-                    <button onclick='window.location.href='/store/logout/' type='button' class='btn btn-default navbar-btn'>{% trans "site.logout" %}</button>
+                    <li><a href='/store/logout'>{% trans "site.logout" %}</a></li>
                 </li>
             </ul>
             {% endif %}

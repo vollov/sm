@@ -1,6 +1,6 @@
 {% extends 'site-layout.html' %}
 
-{% block title %} - {{ page_title }} {% endblock %}
+{% block title %} {{ page_title }} {% endblock %}
 
 {% load staticfiles %}
 {% block content %}
@@ -13,12 +13,12 @@
     <table class="table table-bordered table-striped table-hover">
       <thead>
         <tr>
-          <th>Order ID</th>
-          <th>Agent Name</th>
-          <th>Agent Payment</th>
-          <th>delivery</th>
-          <th>Status</th>
-          <th>Order Date</th>
+          <th>{% trans "order.id" %}</th>
+          <th>{% trans "order.agent.name" %}</th>
+          <th>{% trans "order.agent_payment" %}</th>
+          <th>{% trans "order.delivery_cost" %}</th>
+          <th>{% trans "order.status" %}</th>
+          <th>{% trans "order.date" %}</th>
         </tr>
       </thead>
       <tbody>

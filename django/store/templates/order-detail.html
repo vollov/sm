@@ -1,25 +1,25 @@
 {% extends 'site-layout.html' %}
 
-{% block title %} - {{ page_title }} {% endblock %}
+{% block title %} {{ page_title }} {% endblock %}
 
 {% load staticfiles %}
 {% block content %}
-
+{% load i18n %}
 <h2>Order: {{order.id}}</h2>
 <ul class="list-group">
-  <li class="list-group-item">Agent : {{order.agent}}</li>
+  <li class="list-group-item">{% trans "order.agent.name" %} : {{order.agent}}</li>
   <li class="list-group-item">
   
   <div class="product-order">
     <table class="table table-bordered table-striped table-hover">
       <thead>
         <tr>
-          <th>Customer</th>
-          <th>Product</th>
-          <th>Quantity</th>
-          <th>Unit Price</th>
-          <th>Cost Total</th>
-          <th>Gross Profit</th>
+          <th>Customer{% trans "product_order.customer.name" %}</th>
+          <th>Product{% trans "product_order.product.name" %}</th>
+          <th>Quantity{% trans "product_order.quantity" %}</th>
+          <th>{% trans "product_order.unit_price" %}</th>
+          <th>{% trans "product_order.cost_total" %}</th>
+          <th>{% trans "product_order.gross_profit" %}</th>
         </tr>
       </thead>
       <tbody>
@@ -40,12 +40,12 @@
   </div>
   
   </li>
-  <li class="list-group-item">Gross Profit : {{ order.gross_profit }}</li>
-  <li class="list-group-item">Delivery Cost : {{order.delivery_cost}}</li>
-  <li class="list-group-item">Net Profit : {{order.net_profit}}</li>
-  <li class="list-group-item">Agent Profit : {{order.agent_profit}}</li>
-  <li class="list-group-item">Owner Profit : {{order.owner_profit}}</li>
-  <li class="list-group-item">Agent Payment: {{order.agent_payment}}</li>
+  <li class="list-group-item">Gross Profit {% trans "order.gross_profit" %}: {{ order.gross_profit }}</li>
+  <li class="list-group-item">Delivery Cost {% trans "order.delivery_cost" %}: {{order.delivery_cost}}</li>
+  <li class="list-group-item">Net Profit {% trans "order.net_profit" %}: {{order.net_profit}}</li>
+  <li class="list-group-item">Agent Profit {% trans "order.agent_profit" %}: {{order.agent_profit}}</li>
+  <li class="list-group-item">Owner Profit {% trans "order.owner_profit" %}: {{order.owner_profit}}</li>
+  <li class="list-group-item">Agent Payment {% trans "order.agent_payment" %}: {{order.agent_payment}}</li>
 </ul>
 
 {% endblock %}
