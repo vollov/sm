@@ -36,11 +36,26 @@
           <a class="navbar-brand" href="#">{{active_store.name}}</a>
         </div>
 
+        <div id='navbar' class='navbar-collapse collapse'>
 
+            <ul class='nav navbar-nav'>
+            	{% for key, value in manu_items.items %}
+                <li><a href='{{ value }}'>{% trans key %}</a></li>
+                {% endfor %}             
+            </ul>
+            
+            {% if request.user.is_authenticated %}
+            <ul class='nav navbar-nav navbar-right'>
+                <li>
+                    <p class='navbar-text '>{% trans "site.user" %} : {{request.user.username}}</p>
+                </li>
+                <li>
+                    <button onclick='window.location.href='/store/logout/' type='button' class='btn btn-default navbar-btn'>{% trans "site.logout" %}</button>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
 
-		{% block menu%}
-		
-		{% endblock %}
 		</div>
     </nav>
 

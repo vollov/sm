@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 22:01+0000\n"
+"POT-Creation-Date: 2015-10-30 02:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,44 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: esite/settings.py:86
-msgid "Chinese"
-msgstr ""
+#: sales/templates/products.html:23
+msgid "product.origin"
+msgstr "产地"
 
-#: esite/settings.py:87
-msgid "English"
-msgstr ""
+#: store/templates/orders.html:10
+msgid "orders"
+msgstr "订单"
+
+#: store/templates/product-detail.html:34 store/templates/products.html:18
+#, fuzzy
+#| msgid "product.origin"
+msgid "product.price"
+msgstr "价格"
+
+#: store/templates/products.html:7
+#, fuzzy
+#| msgid "product.origin"
+msgid "products"
+msgstr "价格"
 
 #: templates/index.html:10
 msgid "home.store"
 msgstr "商店"
+
+#: templates/site-layout.html:50
+msgid "site.user"
+msgstr "用户"
+
+#: templates/site-layout.html:53
+msgid "site.logout"
+msgstr "退出"
+
+#, fuzzy
+#~| msgid "Chinese"
+#~ msgid "Chinese"
+#~ msgstr "中文"
+
+#, fuzzy
+#~| msgid "English"
+#~ msgid "English"
+#~ msgstr "英文"

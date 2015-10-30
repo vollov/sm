@@ -87,8 +87,8 @@ USE_L10N = True
 USE_TZ = True
 
 # define resource root
-#RESOURCE_ROOT='/opt/www/jennyli/'
-RESOURCE_ROOT='c:/opt/var/www/jennyli/'
+RESOURCE_ROOT='/opt/www/jennyli/'
+#RESOURCE_ROOT='c:/opt/var/www/jennyli/'
 # Logging settings for development
 """
 DEBUG: Low level system information for debugging purposes

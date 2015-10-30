@@ -62,14 +62,53 @@ class TestProductOrderModel(TestCase):
         
         
 class TestOrderModel(TestCase):
-    """test product order model"""
+    """test product order model
+    
+    (180 - (20*5.5*1.13)) *1 = 55.70
+    (150 - (20*5.5*1.13))*2 = (150-124.3)*2= 51.4
+    
+    gp = 107.1
+    np = 107.1-55 = 52.1
+    ap = 52.1 *0.4 = 20.84
+    """
     
     fixtures = ['auth.json', 'store.json']
     
     def setUp(self):
         self.order = Order.objects.get(id='78c5b842-7540-4d82-8d87-da4f8ec6af58')
       
-      
+    def test_purchase_total(self):
+        expected_purchase_total = 372.90
+        self.assertEqual(self.order.purchase_total, expected_purchase_total, 'purchase total should be '+ str(expected_purchase_total))
+    
+    def test_gross_profit(self):
+        expected_gross_profit = 107.1
+        print 'self.order.gross_profit={0}'.format(str(self.order.gross_profit))
+        self.assertEqual(self.order.gross_profit, expected_gross_profit, 'net profit should be '+ str(expected_gross_profit))
+     
+    def test_net_profit(self):
+        """ 107.1 - 55"""
+        expected_net_profit = 52.1
+        print 'self.order.net_profit={0}'.format(str(self.order.net_profit))
+        self.assertEqual(self.order.net_profit, expected_net_profit, 'net profit should be '+ str(expected_net_profit))
+        
+    def test_agent_profit(self):
+        expected_agent_profit = 20.84
+        print 'self.order.agent_profit={0}'.format(str(self.order.agent_profit))
+        self.assertEqual(self.order.agent_profit, expected_agent_profit, 'purchase total should be '+ str(expected_agent_profit))
+     
+    def test_owner_profit(self):
+        expected_owner_profit = 31.26
+        print 'self.order.owner_profit={0}'.format(str(self.order.owner_profit))
+        self.assertEqual(self.order.owner_profit, expected_owner_profit, 'owner profit should be '+ str(expected_owner_profit))
+     
+    def test_agent_payment(self):
+        """ agent payment = 372.90 + 55 + 31.26"""
+        expected_agent_payment = 459.16
+        print '{0} ==== {1}'.format(type(expected_agent_payment),type(self.order.agent_payment))
+        print 'self.order.agent_payment={0}'.format(str(self.order.agent_payment))
+        self.assertEqual(self.order.agent_payment, expected_agent_payment, 'agent payment should be '+ str(expected_agent_payment))
+       
 # class StoreTestCase(TestCase):
 #     fixtures = ['user.json', 'store.json']
 #     

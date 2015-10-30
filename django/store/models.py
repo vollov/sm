@@ -205,7 +205,7 @@ class Order(models.Model):
     
     @property
     def gross_profit(self):
-        total = decimal.Decimal('0.00')
+        total = 0.00
         order_items = ProductOrder.objects.filter(order=self)
         for item in order_items:
             total += item.profit_total
@@ -213,7 +213,7 @@ class Order(models.Model):
     
     @property
     def purchase_total(self):
-        total = decimal.Decimal('0.00')
+        total = 0.00
         order_items = ProductOrder.objects.filter(order=self)
         for item in order_items:
             total += item.purchase_total
@@ -221,19 +221,19 @@ class Order(models.Model):
     
     @property
     def net_profit(self):
-        return self.gross_profit - self.delivery_cost
+        return round(decimal.Decimal(self.gross_profit) - self.delivery_cost, 2)
     
     @property
     def agent_profit(self):
-        return self.net_profit * self.agent_share
+        return round(decimal.Decimal(self.net_profit) * self.agent_share,2)
     
     @property
     def owner_profit(self):
-        return self.net_profit - self.agent_share
+        return round(self.net_profit - self.agent_profit, 2)
     
     @property
     def agent_payment(self):
-        return self.purchase_total + self.delivery_cost + self.owner_profit
+        return round(self.purchase_total + round(self.delivery_cost,2) + self.owner_profit, 2)
         
 class ProductOrder(models.Model):
     id = models.CharField(max_length=64, primary_key=True, verbose_name=u"Activation key",

@@ -1,0 +1,51 @@
+{% extends 'site-layout.html' %}
+
+{% block title %} - {{ page_title }} {% endblock %}
+
+{% load staticfiles %}
+{% block content %}
+
+<h2>Order: {{order.id}}</h2>
+<ul class="list-group">
+  <li class="list-group-item">Agent : {{order.agent}}</li>
+  <li class="list-group-item">
+  
+  <div class="product-order">
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Customer</th>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
+          <th>Cost Total</th>
+          <th>Gross Profit</th>
+        </tr>
+      </thead>
+      <tbody>
+      
+      	{% for item in product_orders %}
+      	<tr>
+          <th scope="row">{{item.customer}}</th>
+          <td>{{item.product}}</td>
+          <td>{{item.quantity}}</td>
+          <td>{{item.sell_price}}</td>
+          <td>{{item.purchase_total}}</td>
+          <td>{{item.profit_total}}</td>
+        </tr>
+		{% endfor %}
+      
+      </tbody>
+    </table>
+  </div>
+  
+  </li>
+  <li class="list-group-item">Gross Profit : {{ order.gross_profit }}</li>
+  <li class="list-group-item">Delivery Cost : {{order.delivery_cost}}</li>
+  <li class="list-group-item">Net Profit : {{order.net_profit}}</li>
+  <li class="list-group-item">Agent Profit : {{order.agent_profit}}</li>
+  <li class="list-group-item">Owner Profit : {{order.owner_profit}}</li>
+  <li class="list-group-item">Agent Payment: {{order.agent_payment}}</li>
+</ul>
+
+{% endblock %}
