@@ -14,9 +14,9 @@
     <table class="table table-bordered table-striped table-hover">
       <thead>
         <tr>
-          <th>Customer{% trans "product_order.customer.name" %}</th>
-          <th>Product{% trans "product_order.product.name" %}</th>
-          <th>Quantity{% trans "product_order.quantity" %}</th>
+          <th>{% trans "product_order.customer.name" %}</th>
+          <th>{% trans "product_order.product.name" %}</th>
+          <th>{% trans "product_order.quantity" %}</th>
           <th>{% trans "product_order.unit_price" %}</th>
           <th>{% trans "product_order.cost_total" %}</th>
           <th>{% trans "product_order.gross_profit" %}</th>
@@ -40,12 +40,12 @@
   </div>
   
   </li>
-  <li class="list-group-item">Gross Profit {% trans "order.gross_profit" %}: {{ order.gross_profit }}</li>
-  <li class="list-group-item">Delivery Cost {% trans "order.delivery_cost" %}: {{order.delivery_cost}}</li>
-  <li class="list-group-item">Net Profit {% trans "order.net_profit" %}: {{order.net_profit}}</li>
-  <li class="list-group-item">Agent Profit {% trans "order.agent_profit" %}: {{order.agent_profit}}</li>
-  <li class="list-group-item">Owner Profit {% trans "order.owner_profit" %}: {{order.owner_profit}}</li>
-  <li class="list-group-item">Agent Payment {% trans "order.agent_payment" %}: {{order.agent_payment}}</li>
+  <li class="list-group-item">{% trans "order.gross_profit" %}: {{ order.gross_profit }}</li>
+  <li class="list-group-item">{% trans "order.delivery_cost" %}: {{order.delivery_cost}}</li>
+  <li class="list-group-item">{% trans "order.net_profit" %}: {{order.net_profit}}</li>
+  <li class="list-group-item">{% trans "order.agent_profit" %}: {{order.agent_profit}}</li>
+  <li class="list-group-item">{% trans "order.owner_profit" %}: {{order.owner_profit}}</li>
+  <li class="list-group-item">{% trans "order.agent_payment" %}: {{order.agent_payment}}</li>
 </ul>
 
 {% endblock %}
